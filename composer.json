@@ -1,0 +1,17 @@
+{
+  "name": "opheus/phpmvc",
+  "autoload": {
+    "psr-4": {
+      "App\\": "./"
+    }
+  },
+  "authors": [
+    {
+      "name": "orpheusohms",
+      "email": "ominiabohsdavid@gmail.com"
+    }
+  ],
+  "require": {
+    "vlucas/phpdotenv": "^5.3"
+  }
+}
