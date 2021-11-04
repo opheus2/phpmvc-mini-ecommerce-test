@@ -36,11 +36,12 @@ abstract class DbModel
     {
         $tableName = static::tableName();
         $attributes = array_keys($where);
-        $sql = implode("AND ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
+        $sql = implode(" AND ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
         $statement = self::prepare("SELECT * FROM $tableName WHERE $sql LIMIT 1");
         foreach ($where as $key => $value) {
             $statement->bindValue(":$key", $value);
         }
+        
         $statement->execute();
         $result = $statement->fetchObject(static::class);
         return  $result ? $result : null;
@@ -56,8 +57,30 @@ abstract class DbModel
             $statement->bindValue(":$key", $value);
         }
         $statement->execute();
-        
-        return $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $statement->fetchAll();
+    }
+
+    public static function update(array $columns, array $where)
+    {
+        $tableName = static::tableName();
+        $attributes = array_keys($columns);
+        $sql = implode(", ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
+
+        $whereAttributes = array_keys($where);
+        $whereSql = implode(", ", array_map(fn ($attr) => "$attr = :$attr", $whereAttributes));
+        $statement = self::prepare("UPDATE $tableName SET $sql WHERE $whereSql");
+
+        foreach ($columns as $key => $value) {
+            $statement->bindValue(":$key", $value);
+        }
+
+        foreach ($where as $key => $value) {
+            $statement->bindValue(":$key", $value);
+        }
+        $statement->execute();
+
+        return $statement->fetchObject(static::class);
     }
 
     public static function getAll()
