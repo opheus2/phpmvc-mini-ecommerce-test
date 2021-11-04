@@ -11,7 +11,7 @@ class m0000_create_currencies_table
             id INT(11) AUTO_INCREMENT , 
             name VARCHAR(255) NOT NULL, 
             symbol VARCHAR(50) NOT NULL, 
-            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP , 
             PRIMARY KEY (id)) ENGINE = InnoDB";
         $db->pdo->exec($SQL);
     }

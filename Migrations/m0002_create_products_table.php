@@ -9,15 +9,15 @@ class m0002_create_products_table
         $db = Application::$app->db;
         $SQL = "CREATE TABLE products ( 
             id INT(11) AUTO_INCREMENT , 
-            name VARCHAR(255) NOT NULL , 
+            name VARCHAR(255) NOT NULL ,
             description LONGTEXT NULL , 
             amount DOUBLE NOT NULL , 
             rating_count DOUBLE DEFAULT 0, 
             average_rating DOUBLE DEFAULT 0 , 
             currency_id INT(11) NOT NULL , 
-            status VARCHAR(50) NOT NULL DEFAULT active , 
-            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
-            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+            status VARCHAR(50) DEFAULT 'active' , 
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP , 
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP , 
             PRIMARY KEY (id)) ENGINE = InnoDB";
         $db->pdo->exec($SQL);
     }
