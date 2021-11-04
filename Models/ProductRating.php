@@ -21,7 +21,8 @@ class ProductRating extends DbModel
         return [
             'user_id',
             'product_id',
-            'rating'
+            'rating',
+            'comment'
         ];
     }
 }

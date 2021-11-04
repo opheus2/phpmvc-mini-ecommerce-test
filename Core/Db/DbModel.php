@@ -21,14 +21,14 @@ abstract class DbModel
         $tableName = $this->tableName();
         $attributes = array_keys($data);
 
-        $params = array_map(fn($attr) => ":$attr", $attributes);
+        $params = array_map(fn ($attr) => ":$attr", $attributes);
         $statement = $this->prepare("INSERT INTO $tableName (" . implode(',', $attributes) . ")
             VALUES(" . implode(',', $params) . ");");
 
         foreach ($data as $key => $value) {
             $statement->bindValue(":$key", $value);
         }
-        
+
         $statement->execute();
 
         return true;
@@ -38,14 +38,14 @@ abstract class DbModel
     {
         $tableName = static::tableName();
         $attributes = array_keys($where);
-        $sql = implode("AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
+        $sql = implode("AND ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
         $statement = self::prepare("SELECT * FROM $tableName WHERE $sql LIMIT 1");
         foreach ($where as $key => $value) {
             $statement->bindValue(":$key", $value);
         }
         $statement->execute();
-
-        return $statement->fetchObject(static::class);
+        $result = $statement->fetchObject(static::class);
+        return  $result ? $result : null;
     }
 
     public static function findAll(array $where)
@@ -58,7 +58,7 @@ abstract class DbModel
             $statement->bindValue(":$key", $value);
         }
         $statement->execute();
-
+        
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
