@@ -6,9 +6,18 @@ use App\core\Request;
 use App\Models\Product;
 use App\core\Controller;
 use App\Models\Currency;
+use App\Middlewares\AuthMiddleware;
 
 class CartController extends Controller
 {
+    /**
+     * Class constructor.
+     */
+    public function __construct()
+    {
+        $this->registerMiddleWare(new AuthMiddleware());
+    }
+    
     public function index()
     {
         return json_encode(app()->session->get('_cart'));

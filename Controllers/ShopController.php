@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\core\Controller;
 use App\Models\Currency;
 use App\Middlewares\AuthMiddleware;
+use App\Models\User;
 
 class ShopController extends Controller
 {
@@ -29,9 +30,12 @@ class ShopController extends Controller
         if (!app()->session->get('_cart')) {
             app()->session->create('_cart', []);
         }
+        
+        $user = User::findOne(['id' => app()->session->get('user')]);
 
         return $this->render('shop', [
-            'products' => $productsWithCurrency
+            'products' => $productsWithCurrency,
+            'user' => $user
         ]);
     }
 }

@@ -31,19 +31,4 @@ class Product extends DbModel
             'status',
         ];
     }
-
-    public function ruleMessages(): array
-    {
-        return [
-            'confirm_password' => [
-                self::RULE_MATCH => 'This field must be the same as Password'
-            ]
-        ];
-    }
-
-    public function newUser(array $data)
-    {
-        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-        return parent::save($data);
-    }
 }
