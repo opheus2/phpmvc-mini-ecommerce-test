@@ -47,11 +47,12 @@ $app->router->post('/register', [RegisterController::class, 'register']);
 /** Begin Shop Routes */
 $app->router->get('/shop', [ShopController::class, '__invoke']);
 $app->router->get('/products', [ProductController::class, 'index']);
+$app->router->post('/products/rate', [ProductController::class, 'rateProduct']);
 
-$app->router->get('/cart', [CartController::class, 'index']);
-$app->router->get('/cart/add', [CartController::class, 'addProductToCart']);
-$app->router->get('/cart/remove', [CartController::class, 'removeProductFromCart']);
-$app->router->get('/cart/update', [CartController::class, 'updateProductQuantity']);
+$app->router->get('/carts', [CartController::class, 'index']);
+$app->router->get('/carts/add', [CartController::class, 'addProductToCart']);
+$app->router->get('/carts/remove', [CartController::class, 'removeProductFromCart']);
+$app->router->get('/carts/update', [CartController::class, 'updateProductQuantity']);
 
 /** End Shop Routes */
 

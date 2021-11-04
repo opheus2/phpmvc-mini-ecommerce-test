@@ -38,13 +38,14 @@
                         </svg>
                     </button>
                 </div>
-                <div x-data="{ temp: 0, orig: 0, allowRating: true }" class="flex cursor-pointer text-4xl" @click="orig = temp" disabled>
-                    <input type="number" :value="orig" class="hidden" />
-
-
-                    <template x-for="item in [1,2,3,4,5]">
-                        <span @mouseenter="temp = item" @mouseleave="temp = orig" class="text-gray-300 text-base" :class="{'text-purple-600': (temp >= item)}">★</span>
-                    </template>
+                <div class="mt-4 flex justify-between">
+                    <div x-data="{ temp: 0, orig: 0, allowRating: true }" class="flex cursor-pointer text-4xl" @click="() => {orig = temp; rateProduct(<?=$product['id'] ?>, temp);}">
+                        <input type="number" :value="orig" class="hidden" />
+                        <template x-for="item in [1,2,3,4,5]">
+                            <span @mouseenter="temp = item" @mouseleave="temp = orig" class="text-gray-300 text-base" :class="{'text-purple-600': (temp >= item)}">★</span>
+                        </template>
+                    </div>
+                    <p class="text-sm text-gray-700">20 ratings</p>
                 </div>
             </div>
         <?php endforeach ?>

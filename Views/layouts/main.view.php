@@ -152,7 +152,7 @@
                 cart: [],
                 deliveryFee: 0,
                 async addProductToCart(id) {
-                    const cartRes = await fetch(`${BASE_URL}/cart/add?id=${id}`)
+                    const cartRes = await fetch(`${BASE_URL}/carts/add?id=${id}`)
                     const cart = await cartRes.json()
                     if (cart.status === true) {
                         Alpine.store('app').totalCartItems += 1
@@ -161,13 +161,13 @@
                     }
                 },
                 async fetchCart() {
-                    const cartRes = await fetch(`${BASE_URL}/cart`)
+                    const cartRes = await fetch(`${BASE_URL}/carts`)
                     const cart = await cartRes.json()
                     this.cart = cart
                     this.openCart = true
                 },
                 async removeProductFromCart(id) {
-                    const cartRes = await fetch(`${BASE_URL}/cart/remove?id=${id}`)
+                    const cartRes = await fetch(`${BASE_URL}/carts/remove?id=${id}`)
                     const cart = await cartRes.json()
                     if (cart.status === true) {
                         this.cart = Object.values(this.cart).filter(p => p.id !== id)
@@ -176,12 +176,27 @@
                     }
                 },
                 async updateProductQuantity(id, quantity) {
-                    const cartRes = await fetch(`${BASE_URL}/cart/update?id=${id}&quantity=${quantity}`)
+                    const cartRes = await fetch(`${BASE_URL}/carts/update?id=${id}&quantity=${quantity}`)
                     const cart = await cartRes.json()
                     console.log(cart)
                     if (cart.status === true) {
                         Alpine.store('app').totalCartItems = cart.total_cart_items
                         Alpine.store('app').totalItemsCost = cart.total_items_cost
+                    }
+                },
+                async rateProduct(id, rating) {
+                    console.log(`${id} ${rating}`)
+                    const formData = new FormData()
+                    formData.append('id', id)
+                    formData.append('rating', rating)
+                    const ratingRes = await fetch(`${BASE_URL}/products/rate`, {
+                        method: 'POST',
+                        body: formData,
+                    })
+                    const data = ratingRes.json()
+                    console.log(data)
+                    if (data.status === true) {
+                        //
                     }
                 },
                 async checkout() {
