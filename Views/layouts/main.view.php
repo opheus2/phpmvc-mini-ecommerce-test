@@ -108,7 +108,7 @@
 
                             <div class="hidden lg:ml-8 lg:flex">
                                 <a href="#" class="text-gray-700 hover:text-gray-800 flex items-center">
-                                    <img src="https://tailwindui.com/img/flags/flag-canada.svg" alt="" class="w-5 h-auto block flex-shrink-0">
+                                    <img src="/images/united-states.svg" alt="" class="w-5 h-auto block flex-shrink-0">
                                     <span class="ml-3 block text-sm font-medium">
                                         USD
                                     </span>
@@ -150,11 +150,14 @@
                 showProductModal: false,
                 products: [],
                 cart: [],
+                deliveryFee: 0,
                 async addProductToCart(id) {
-                    const productsRes = await fetch(`${BASE_URL}/cart/add?id=${id}`)
-                    const response = await productsRes.json()
-                    if (response.status === true) {
+                    const cartRes = await fetch(`${BASE_URL}/cart/add?id=${id}`)
+                    const cart = await cartRes.json()
+                    if (cart.status === true) {
                         Alpine.store('app').totalCartItems += 1
+                        Alpine.store('app').totalCartItems = cart.total_cart_items
+                        Alpine.store('app').totalItemsCost = cart.total_items_cost
                     }
                 },
                 async fetchCart() {
@@ -163,15 +166,13 @@
                     this.cart = cart
                     this.openCart = true
                 },
-                getProducts() {
-                    return Alpine.store('app').products
-                },
                 async removeProductFromCart(id) {
                     const cartRes = await fetch(`${BASE_URL}/cart/remove?id=${id}`)
                     const cart = await cartRes.json()
                     if (cart.status === true) {
                         this.cart = Object.values(this.cart).filter(p => p.id !== id)
                         Alpine.store('app').totalCartItems = cart.total_cart_items
+                        Alpine.store('app').totalItemsCost = cart.total_items_cost
                     }
                 },
                 async updateProductQuantity(id, quantity) {
@@ -180,8 +181,12 @@
                     console.log(cart)
                     if (cart.status === true) {
                         Alpine.store('app').totalCartItems = cart.total_cart_items
+                        Alpine.store('app').totalItemsCost = cart.total_items_cost
                     }
                 },
+                async checkout() {
+                    //
+                }
             };
         }
     </script>

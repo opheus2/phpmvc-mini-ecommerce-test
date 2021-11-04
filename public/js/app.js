@@ -3348,7 +3348,9 @@ alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].plugin(_alpinejs_persist__WEBPA
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].store("app", {
   products: [],
-  totalCartItems: alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].$persist(0)
+  user: alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].$persist({}),
+  totalCartItems: alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].$persist(0),
+  totalItemsCost: alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].$persist(0)
 });
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
 

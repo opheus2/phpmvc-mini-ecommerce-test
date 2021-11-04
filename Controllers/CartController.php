@@ -23,7 +23,9 @@ class CartController extends Controller
             $carts[$id]['total_price'] = floatval($carts[$id]['amount'] * $carts[$id]['quantity']);
             app()->session->create('_cart', $carts);
             return json_encode([
-                'status' => true
+                'status' => true,
+                'total_cart_items' => $this->getTotalOf($carts, 'quantity'),
+                'total_items_cost' => $this->getTotalOf($carts, 'total_price'),
             ]);
         }
 
@@ -35,7 +37,9 @@ class CartController extends Controller
             $carts[$id]['total_price'] = $product['amount'];
             app()->session->create('_cart', $carts);
             return json_encode([
-                'status' => true
+                'status' => true,
+                'total_cart_items' => $this->getTotalOf($carts, 'quantity'),
+                'total_items_cost' => $this->getTotalOf($carts, 'total_price'),
             ]);
         }
 
@@ -50,17 +54,11 @@ class CartController extends Controller
         $carts = app()->session->get('_cart');
         unset($carts[$id]);
         app()->session->create('_cart', $carts);
-        $totalCartItems = array_reduce(
-            $carts,
-            function ($accumulator, $item) {
-                return $accumulator + $item['quantity'];
-            },
-            0
-        );
 
         return json_encode([
             'status' => true,
-            'total_cart_items' => $totalCartItems
+            'total_cart_items' => $this->getTotalOf($carts, 'quantity'),
+            'total_items_cost' => $this->getTotalOf($carts, 'total_price'),
         ]);
     }
 
@@ -73,21 +71,30 @@ class CartController extends Controller
             $carts[$id]['quantity'] = $quantity;
             $carts[$id]['total_price'] = floatval($quantity * $carts[$id]['amount']);
             app()->session->create('_cart', $carts);
-            $totalCartItems = array_reduce(
-                $carts,
-                function ($accumulator, $item) {
-                    return $accumulator + $item['quantity'];
-                },
-                0
-            );
             return json_encode([
                 'status' => true,
-                'total_cart_items' => $totalCartItems
+                'total_cart_items' => $this->getTotalOf($carts, 'quantity'),
+                'total_items_cost' => $this->getTotalOf($carts, 'total_price'),
             ]);
         }
 
         return json_encode([
             'status' => false
         ]);
+    }
+
+    protected function getTotalOf(array $cart, string $field)
+    {
+        return
+            round(
+                array_reduce(
+                    $cart,
+                    function ($accumulator, $item) use ($field) {
+                        return $accumulator + $item[$field];
+                    },
+                    0
+                ),
+                2
+            );
     }
 }

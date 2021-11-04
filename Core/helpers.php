@@ -8,3 +8,21 @@ if (!function_exists('app')) {
         return Application::$app;
     }
 }
+
+if (!function_exists('truncate_number')) {
+    function truncate_number($number, $precision = 2)
+    {
+        // Zero causes issues, and no need to truncate
+        if (0 == (float)$number) {
+            return $number;
+        }
+        // Are we negative?
+        $negative = $number / abs($number);
+        // Cast the number to a positive to solve rounding
+        $number = abs($number);
+        // Calculate precision number for dividing / multiplying
+        $precision = pow(10, $precision);
+        // Run the math, re-applying the negative value to ensure returns correctly negative / positive
+        return floor($number * $precision) / $precision * $negative;
+    }
+}
