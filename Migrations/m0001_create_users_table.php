@@ -2,7 +2,6 @@
 
 use App\Core\Application;
 
-
 class m0001_create_users_table
 {
     public function up()
@@ -20,7 +19,6 @@ class m0001_create_users_table
        ) ENGINE=INNODB;";
         $db->pdo->exec($SQL);
     }
-
 
     public function down()
     {

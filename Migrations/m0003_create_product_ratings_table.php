@@ -2,20 +2,17 @@
 
 use App\Core\Application;
 
-class m0002_create_products_table
+class m0003_create_product_ratings_table
 {
     public function up()
     {
         $db = Application::$app->db;
-        $SQL = "CREATE TABLE products ( 
+        $SQL = "CREATE TABLE product_ratings ( 
             id INT(11) AUTO_INCREMENT , 
-            name VARCHAR(255) NOT NULL , 
-            description LONGTEXT NULL , 
-            amount DOUBLE NOT NULL , 
-            rating_count DOUBLE DEFAULT 0, 
-            average_rating DOUBLE DEFAULT 0 , 
-            currency_id INT(11) NOT NULL , 
-            status VARCHAR(50) NOT NULL DEFAULT active , 
+            user_id INT(11) NOT NULL , 
+            product_id INT(11) NOT NULL , 
+            rating INT(11) NOT NULL DEFAULT active, 
+            comment VARCHAR(255) NULL, 
             updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
             PRIMARY KEY (id)) ENGINE = InnoDB";
@@ -25,7 +22,7 @@ class m0002_create_products_table
     public function down()
     {
         $db = Application::$app->db;
-        $SQL = "DROP TABLE products;";
+        $SQL = "DROP TABLE product_ratings;";
         $db->pdo->exec($SQL);
     }
 }

@@ -4,11 +4,11 @@ namespace App\Models;
 
 use App\Core\Db\DbModel;
 
-class User extends DbModel
+class Currency extends DbModel
 {
     public static function tableName(): string
     {
-        return "users";
+        return "currencies";
     }
 
     public function primaryKey(): string
@@ -19,12 +19,8 @@ class User extends DbModel
     public function attributes(): array
     {
         return [
-            'first_name',
-            'last_name',
-            'email',
-            'password',
-            'account_balance',
-            'status'
+            'name',
+            'symbol',
         ];
     }
 }

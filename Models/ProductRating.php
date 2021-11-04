@@ -4,11 +4,11 @@ namespace App\Models;
 
 use App\Core\Db\DbModel;
 
-class User extends DbModel
+class ProductRating extends DbModel
 {
     public static function tableName(): string
     {
-        return "users";
+        return "product_ratings";
     }
 
     public function primaryKey(): string
@@ -19,12 +19,9 @@ class User extends DbModel
     public function attributes(): array
     {
         return [
-            'first_name',
-            'last_name',
-            'email',
-            'password',
-            'account_balance',
-            'status'
+            'user_id',
+            'product_id',
+            'rating'
         ];
     }
 }
