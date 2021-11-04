@@ -1,9 +1,9 @@
-<?php 
+<?php
 
-namespace App\Core\Middlewares;
+namespace App\Middlewares;
 
 use App\Core\Application;
-use App\Core\Exceptions\ForbiddenException;
+use App\Core\BaseMiddleware;
 
 class AuthMiddleware extends BaseMiddleware
 {
@@ -20,7 +20,7 @@ class AuthMiddleware extends BaseMiddleware
     {
         if (Application::isGuest()) {
             if (empty($this->actions) || in_array(Application::$app->controller->action, $this->actions)) {
-                throw new ForbiddenException('You are not logged in');
+                Application::$app->response->redirect('/login');
             }
         }
     }

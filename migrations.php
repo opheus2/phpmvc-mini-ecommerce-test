@@ -1,7 +1,7 @@
 <?php
 
-use Dotenv\Dotenv;
 use App\Core\Application;
+use Dotenv\Dotenv;
 
 require_once __DIR__ . '/vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(__DIR__);
@@ -17,5 +17,4 @@ $config = [
 ];
 
 $app = new Application(__DIR__, $config);
-
 $app->db->applyMigrations();

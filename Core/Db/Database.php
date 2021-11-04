@@ -78,7 +78,24 @@ class Database
         $statement->execute();
     }
 
-    protected function log($message)
+    public function insert(array $data, string $tableName)
+    {
+        $attributes = array_keys($data);
+
+        $params = array_map(fn ($attr) => ":$attr", $attributes);
+        $statement = $this->prepare("INSERT INTO $tableName (" . implode(',', $attributes) . ")
+            VALUES(" . implode(',', $params) . ");");
+
+        foreach ($data as $key => $value) {
+            $statement->bindValue(":$key", $value);
+        }
+
+        $statement->execute();
+
+        return true;
+    }
+
+    public function log($message)
     {
         $date = date('Y-m-d H:i:s');
         echo "[{$date}] {$message}" . PHP_EOL;

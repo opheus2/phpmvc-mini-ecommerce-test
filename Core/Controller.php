@@ -2,7 +2,7 @@
 
 namespace App\core;
 
-use App\Core\Middlewares\BaseMiddleware;
+use App\Core\BaseMiddleware;
 
 class Controller
 {
@@ -10,7 +10,7 @@ class Controller
     public string $action = '';
 
     /** 
-     * @var \App\Core\Middlewares\BaseMiddleware[] 
+     * @var \App\Core\BaseMiddleware[] 
      */
     protected array $middlewares = [];
 
@@ -37,7 +37,7 @@ class Controller
     /**
      * Get the value of middlewares
      *
-     * @return  \App\Core\Middlewares\BaseMiddleware[]
+     * @return  \App\Core\BaseMiddleware[]
      */ 
     public function getMiddlewares()
     {

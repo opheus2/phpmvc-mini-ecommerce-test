@@ -13,7 +13,7 @@ class m0001_create_users_table
            first_name VARCHAR(255) NOT NULL,
            last_name VARCHAR(255) NOT NULL,
            password VARCHAR(512) NOT NULL,
-           account_balance DOUBLE DEFAULT 500,
+           account_balance DOUBLE DEFAULT 100,
            status TINYINT DEFAULT 1,
            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
        ) ENGINE=INNODB;";
