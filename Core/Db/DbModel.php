@@ -16,7 +16,7 @@ abstract class DbModel
 
     public function save(array $data)
     {
-        $this->validateAttribute($data);
+        $this->validateAttribute(array_keys($data));
         $tableName = $this->tableName();
         $attributes = array_keys($data);
 

@@ -46,7 +46,7 @@ class LoginController extends Controller
         }
 
         if (Application::$app->login($user)) {
-            return $this->render('shop');
+            return $this->redirect('/shop');
         }
     }
 }

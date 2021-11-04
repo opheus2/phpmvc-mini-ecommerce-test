@@ -1,3 +1,9 @@
+<?php
+
+use App\Core\Application;
+
+?>
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -19,7 +25,12 @@
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        {{content}}
+    <?php if (Application::$app->session->getFlash('success')) : ?>
+        <div class="flex p-4 items-center justify-center bg-green-400 text-white">
+            <?php echo Application::$app->session->getFlash('success') ?>
+        </div>
+    <?php endif; ?>
+    {{content}}
 
     <script src="/js/app.js" async defer></script>
 </body>
