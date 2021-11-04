@@ -23,9 +23,9 @@ class View
 
     protected function layoutContent()
     {
-        $layout = Application::$app->layout;
-        if (Application::$app->controller) {
-            $layout = Application::$app->getController()->layout;
+        $layout = app()->layout;
+        if (app()->controller) {
+            $layout = app()->getController()->layout;
         }
         ob_start();
         include_once Application::$ROOT_DIR . "/Views/layouts/{$layout}.view.php";

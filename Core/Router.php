@@ -43,13 +43,13 @@ class Router
         }
 
         if (is_string($callback)) {
-            return Application::$app->view->renderView($callback);
+            return app()->view->renderView($callback);
         }
 
         if (is_array($callback)) {
             /**@var \App\core\Controller $controller */
             $controller = new $callback[0]();
-            Application::$app->controller = $controller;
+            app()->controller = $controller;
             $controller->action = $callback[1];
 
             $callback[0] = $controller;

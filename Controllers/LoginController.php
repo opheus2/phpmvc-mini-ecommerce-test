@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Core\Application;
 use App\Models\User;
 use App\core\Request;
 use App\core\Controller;
@@ -45,7 +44,7 @@ class LoginController extends Controller
             ]);
         }
 
-        if (Application::$app->login($user)) {
+        if (app()->login($user)) {
             return $this->redirect('/shop');
         }
     }

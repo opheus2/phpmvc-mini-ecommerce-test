@@ -1,9 +1,10 @@
-<?php 
+<?php
 
+use App\Core\Application;
 
-if (!function_exists('getText')) {
-    function getText(string $key, string $section)
+if (!function_exists('app')) {
+    function app()
     {
-        
+        return Application::$app;
     }
 }

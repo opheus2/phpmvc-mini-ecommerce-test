@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Core\Application;
 use App\core\Controller;
 use App\core\Request;
 use App\Models\User;
@@ -34,7 +33,7 @@ class RegisterController extends Controller
         try {
             $user = (new User)->save($data);
             if ($user) {
-                Application::$app->session->setFlash('success', 'Registration successful. Please login');
+                app()->session->setFlash('success', 'Registration successful. Please login');
                 return $this->redirect('/login');
             }
         } catch (\Exception $e) {

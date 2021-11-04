@@ -2,8 +2,6 @@
 
 namespace App\Core\Db;
 
-use App\core\Model;
-use App\Core\Application;
 use Exception;
 use PDO;
 
@@ -71,6 +69,18 @@ abstract class DbModel
         return $statement->fetchAll();
     }
 
+    public static function getJoin(string $joinTable, array $where)
+    {
+        $tableName = static::tableName();
+        $sql = implode("", array_map(fn ($key, $value) => "{$tableName}.{$key}={$joinTable}.{$value}", array_keys($where), $where));
+        $statement = self::prepare("SELECT * FROM $tableName
+                                    INNER JOIN $joinTable
+                                    ON $sql");
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
     public static function groupBy(array $group, array $where = [])
     {
         # code...
@@ -87,6 +97,6 @@ abstract class DbModel
 
     public static function prepare($sql)
     {
-        return Application::$app->db->pdo->prepare($sql);
+        return app()->db->pdo->prepare($sql);
     }
 }

@@ -2,9 +2,11 @@
 
 use Dotenv\Dotenv;
 use App\Core\Application;
+use App\Controllers\CartController;
 use App\Controllers\ShopController;
 use App\Controllers\LoginController;
 use App\Controllers\LogoutController;
+use App\Controllers\ProductController;
 use App\Controllers\RegisterController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -44,8 +46,12 @@ $app->router->post('/register', [RegisterController::class, 'register']);
 
 /** Begin Shop Routes */
 $app->router->get('/shop', [ShopController::class, '__invoke']);
+$app->router->get('/products', [ProductController::class, 'index']);
 
-$app->router->get('/cart', [CartController::class, '__invoke']);
+$app->router->get('/cart', [CartController::class, 'index']);
+$app->router->get('/cart/add', [CartController::class, 'addProductToCart']);
+$app->router->get('/cart/remove', [CartController::class, 'removeProductFromCart']);
+$app->router->get('/cart/update', [CartController::class, 'updateProductQuantity']);
 
 /** End Shop Routes */
 

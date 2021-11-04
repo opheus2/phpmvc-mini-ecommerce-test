@@ -18,11 +18,15 @@ class Session
         $_SESSION[self::FLASH_KEY] = $flashMessages;
     }
 
+    public function create(string $key, array $values)
+    {
+        $_SESSION[$key] = $values;
+    }
+
     public function set(string $key, string $value)
     {
         $_SESSION[$key] = $value;
     }
-
 
     public function get(string $key)
     {

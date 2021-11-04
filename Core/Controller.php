@@ -21,12 +21,12 @@ class Controller
 
     public function render($view, array $params = [], array $errors = [])
     {
-        return Application::$app->view->renderView($view, $params, $errors);
+        return app()->view->renderView($view, $params, $errors);
     }
 
     public function redirect(string $url)
     {
-        return Application::$app->response->redirect($url);
+        return app()->response->redirect($url);
     }
 
     public function registerMiddleWare(BaseMiddleware $middleware)

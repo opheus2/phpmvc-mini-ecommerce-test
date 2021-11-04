@@ -2,8 +2,6 @@
 
 namespace App\core;
 
-use App\Core\Application;
-
 abstract class Model
 {
     public const RULE_REQUIRED = 'required';
@@ -64,7 +62,7 @@ abstract class Model
                     $className = $rule['class'];
                     $uniqueAttr = $rule['attribute'] ?? $attribute;
                     $tableName = $className::tableName();
-                    $statement = Application::$app->db->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :attr");
+                    $statement = app()->db->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :attr");
                     $statement->bindValue(":attr", $value);
                     $statement->execute();
 
