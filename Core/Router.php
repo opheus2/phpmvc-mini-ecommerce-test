@@ -8,7 +8,7 @@ class Router
 {
     protected array $routes = [];
     public Response $response;
-    public Request $request;
+    public $request;
 
     /**
      * __construct
@@ -17,7 +17,7 @@ class Router
      * @param  mixed $response
      * @return void
      */
-    public function __construct(Request $request, Response $response)
+    public function __construct($request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
@@ -25,12 +25,12 @@ class Router
 
     public function get($path, $callback)
     {
-        $this->routes['get'][$path] = $callback;
+        $this->routes['GET'][$path] = $callback;
     }
 
     public function post($path, $callback)
     {
-        $this->routes['post'][$path] = $callback;
+        $this->routes['POST'][$path] = $callback;
     }
 
     public function resolve()

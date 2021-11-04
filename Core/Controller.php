@@ -19,9 +19,9 @@ class Controller
         $this->layout = $layout;
     }
 
-    public function render($view, $params = [])
+    public function render($view, array $params = [], array $errors = [])
     {
-        return Application::$app->view->renderView($view, $params);
+        return Application::$app->view->renderView($view, $params, $errors);
     }
 
     public function redirect(string $url)

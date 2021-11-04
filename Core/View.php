@@ -5,9 +5,11 @@ namespace App\Core;
 class View
 {
     public string $title = '';
+    public array $errors = [];
 
-    public function renderView($view, $params = [])
+    public function renderView($view, array $params = [], array $errors = [])
     {
+        $this->errors = $errors;
         $viewContent = $this->renderOnlyView($view, $params);
         $layoutContent = $this->layoutContent();
         return str_replace('{{content}}', $viewContent, $layoutContent);
@@ -26,7 +28,7 @@ class View
             $layout = Application::$app->getController()->layout;
         }
         ob_start();
-        include_once Application::$ROOT_DIR . "/views/layouts/{$layout}.php";
+        include_once Application::$ROOT_DIR . "/Views/layouts/{$layout}.view.php";
         return ob_get_clean();
     }
 
@@ -37,7 +39,11 @@ class View
         }
 
         ob_start();
-        include_once Application::$ROOT_DIR . "/views/{$view}.php";
+        include_once Application::$ROOT_DIR . "/Views/{$view}.view.php";
         return ob_get_clean();
+    }
+    protected function hasErrors()
+    {
+        return !empty($this->errors);
     }
 }
