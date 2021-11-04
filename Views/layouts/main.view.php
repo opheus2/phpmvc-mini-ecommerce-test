@@ -1,8 +1,3 @@
-<?php
-
-use App\Core\Application;
-
-?>
 <!--content start-->
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -21,13 +16,13 @@ use App\Core\Application;
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body class="h-full">
+<body class="h-full" x-data="mainData()">
     <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-    <?php if (Application::$app->session->getFlash('success')) : ?>
+            <p class=" browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <?php if (app()->session->getFlash('success')) : ?>
         <div class="alert alert-success">
-            <?php echo Application::$app->session->getFlash('success') ?>
+            <?php echo app()->session->getFlash('success') ?>
         </div>
     <?php endif; ?>
 
@@ -37,32 +32,14 @@ use App\Core\Application;
 
     Off-canvas menu for mobile, show/hide based on off-canvas menu state.
   -->
-        <div class="fixed inset-0 flex z-40 lg:hidden" role="dialog" aria-modal="true">
-            <!--
-      Off-canvas menu overlay, show/hide based on off-canvas menu state.
+        <div x-show="showMobileMenu" class="fixed inset-0 flex z-40 lg:hidden" role="dialog" aria-modal="true">
 
-      Entering: "transition-opacity ease-linear duration-300"
-        From: "opacity-0"
-        To: "opacity-100"
-      Leaving: "transition-opacity ease-linear duration-300"
-        From: "opacity-100"
-        To: "opacity-0"
-    -->
-            <div class="fixed inset-0 bg-black bg-opacity-25" aria-hidden="true"></div>
+            <div x-show="showMobileMenu" x-transition:enter="transition-opacity ease-linear duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity ease-linear duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" x-show="showMobileMenu" class="fixed inset-0 bg-black bg-opacity-25" aria-hidden="true">
+            </div>
 
-            <!--
-      Off-canvas menu, show/hide based on off-canvas menu state.
-
-      Entering: "transition ease-in-out duration-300 transform"
-        From: "-translate-x-full"
-        To: "translate-x-0"
-      Leaving: "transition ease-in-out duration-300 transform"
-        From: "translate-x-0"
-        To: "-translate-x-full"
-    -->
-            <div class="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto">
+            <div x-show="showMobileMenu" x-transition:enter="transition ease-in-out duration-300 transform" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in-out duration-300 transform" x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full" class="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto">
                 <div class="px-4 pt-5 pb-2 flex">
-                    <button type="button" class="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400">
+                    <button type="button" @click="showMobileMenu = false" class="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400">
                         <span class="sr-only">Close menu</span>
                         <!-- Heroicon name: outline/x -->
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -102,7 +79,7 @@ use App\Core\Application;
                 <div class="border-b border-gray-200">
                     <div class="h-16 flex items-center">
                         <!-- Mobile menu toggle, controls the 'mobileMenuOpen' state. -->
-                        <button type="button" class="bg-white p-2 rounded-md text-gray-400 lg:hidden">
+                        <button type="button" @click="showMobileMenu = true" class="bg-white p-2 rounded-md text-gray-400 lg:hidden">
                             <span class="sr-only">Open menu</span>
                             <!-- Heroicon name: outline/menu -->
                             <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -143,10 +120,12 @@ use App\Core\Application;
                             <div class="ml-4 flow-root lg:ml-6">
                                 <a href="#" class="group -m-2 p-2 flex items-center">
                                     <!-- Heroicon name: outline/shopping-bag -->
-                                    <svg class="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                                    </svg>
-                                    <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                                    <button @click="fetchCart()">
+                                        <svg class="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                                        </svg>
+                                    </button>
+                                    <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800" x-text="$store.app.totalCartItems"></span>
                                     <span class="sr-only">items in cart, view bag</span>
                                 </a>
                             </div>
@@ -156,9 +135,56 @@ use App\Core\Application;
             </nav>
         </header>
     </div>
-    {{content}}
+    <div>
+        {{content}}
+    </div>
 
-    <script src="/js/app.js" async defer></script>
+    <script type="module" src="/js/app.js" async defer></script>
+    <script>
+        var BASE_URL = "http://localhost:8081";
+
+        function mainData() {
+            return {
+                openCart: false,
+                showMobileMenu: false,
+                showProductModal: false,
+                products: [],
+                cart: [],
+                async addProductToCart(id) {
+                    const productsRes = await fetch(`${BASE_URL}/cart/add?id=${id}`)
+                    const response = await productsRes.json()
+                    if (response.status === true) {
+                        Alpine.store('app').totalCartItems += 1
+                    }
+                },
+                async fetchCart() {
+                    const cartRes = await fetch(`${BASE_URL}/cart`)
+                    const cart = await cartRes.json()
+                    this.cart = cart
+                    this.openCart = true
+                },
+                getProducts() {
+                    return Alpine.store('app').products
+                },
+                async removeProductFromCart(id) {
+                    const cartRes = await fetch(`${BASE_URL}/cart/remove?id=${id}`)
+                    const cart = await cartRes.json()
+                    if (cart.status === true) {
+                        this.cart = Object.values(this.cart).filter(p => p.id !== id)
+                        Alpine.store('app').totalCartItems = cart.total_cart_items
+                    }
+                },
+                async updateProductQuantity(id, quantity) {
+                    const cartRes = await fetch(`${BASE_URL}/cart/update?id=${id}&quantity=${quantity}`)
+                    const cart = await cartRes.json()
+                    console.log(cart)
+                    if (cart.status === true) {
+                        Alpine.store('app').totalCartItems = cart.total_cart_items
+                    }
+                },
+            };
+        }
+    </script>
 </body>
 
 </html>
