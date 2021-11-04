@@ -1,9 +1,10 @@
-<?php 
+<?php
 
 namespace App\Controllers;
 
 use App\core\Controller;
 use App\Middlewares\AuthMiddleware;
+use App\Models\Product;
 
 class ShopController extends Controller
 {
@@ -17,6 +18,13 @@ class ShopController extends Controller
 
     public function __invoke()
     {
-        return 'blaad';
+        $products = Product::getAll();
+        // echo '<pre>';
+        // var_dump($products);
+        // echo '</pre>';
+        // exit;
+        return $this->render('shop', [
+            'products' => $products
+        ]);
     }
 }

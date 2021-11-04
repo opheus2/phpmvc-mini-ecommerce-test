@@ -14,6 +14,7 @@ class m0002_create_products_table
             description LONGTEXT NULL , 
             amount DOUBLE NOT NULL , 
             weight VARCHAR(10) NULL , 
+            image VARCHAR(512) NULL,
             rating_count DOUBLE DEFAULT 0, 
             average_rating DOUBLE DEFAULT 0 , 
             currency_id INT(11) NOT NULL , 

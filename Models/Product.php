@@ -25,6 +25,8 @@ class Product extends DbModel
             'price',
             'currency_id',
             'average_rating',
+            'image',
+            'weight',
             'rating_count',
             'status',
         ];

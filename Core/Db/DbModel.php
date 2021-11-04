@@ -68,7 +68,7 @@ abstract class DbModel
         $statement = self::prepare("SELECT * FROM $tableName");
         $statement->execute();
 
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        return $statement->fetchAll();
     }
 
     public static function groupBy(array $group, array $where = [])

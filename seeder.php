@@ -60,6 +60,7 @@ if (!function_exists('seedProductsTable')) {
                 'name' => 'Apple',
                 'amount' => 0.3,
                 "category" => 'foods',
+                "image" => 'apple.jpg',
                 'description' => "Idared is an apple variety that was first developed in Idaho. It's a cross between the Jonathan and Wagener breeds. The apples are medium-sized with a bright red and green-red color. The flesh is juicy, crisp, and firm, while the flavors are sweet, tart, aromatic, and refreshing.",
                 "weight" => "0.0002kg",
                 "currency_id" => 1
@@ -68,6 +69,7 @@ if (!function_exists('seedProductsTable')) {
                 'name' => 'Beer',
                 'amount' => 2,
                 "category" => 'drinks',
+                "image" => 'beer.jpg',
                 'description' => "Kingfisher - India, The king of beers in India accounts for one out of every three bottles sold in the country. Kingfisher also hosts The Great Indian October Fest every year in Bangalore, which offers beer, food, music, a flea market and even an auto show. Since its inception in 1978 it has broadened its range to seven variants, each one equally as pleasing whether it's accompanying a korma or a vindaloo.",
                 "weight" => "1.015kg",
                 "currency_id" => 1
@@ -76,6 +78,7 @@ if (!function_exists('seedProductsTable')) {
                 'name' => 'Water',
                 'amount' => 1,
                 "category" => 'drinks',
+                "image" => 'water.jpg',
                 'description' => "One of the UK's most prestigious bottled waters, Hildon Natural Mineral Water is served at the House of Commons and the Royal Opera House and is rumored to be the water of choice at Buckingham Palace. Hildon begins as rainfall, which percolates through the chalk hills of the Hampshire countryside. ",
                 "weight" => "0.0005kg",
                 "currency_id" => 1
@@ -83,7 +86,8 @@ if (!function_exists('seedProductsTable')) {
             [
                 'name' => 'Cheese',
                 'amount' => 3.74,
-                "category" => 'drinks',
+                "category" => 'foods',
+                "image" => 'cheese.jpg',
                 'description' => "Mozzarella cheese",
                 "weight" => "1kg",
                 "currency_id" => 1
