@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+use App\Rules\UniqueRule;
 use Rakit\Validation\Validator;
 
 abstract class FormRequest extends Request
@@ -10,6 +11,7 @@ abstract class FormRequest extends Request
     public Validator $validator;
     public array $formData;
     public array $errors;
+    public $validation;
 
     /**
      * Class constructor.
@@ -17,23 +19,29 @@ abstract class FormRequest extends Request
     public function __construct(array $formData)
     {
         $this->validator = new Validator();
+        $this->validator->addValidator('unique', new UniqueRule());
         $this->formData = $formData;
     }
 
     abstract public function rules(): array;
 
-    public function validate()
+    public function validate(): bool
     {
-        $validation = $this->validator->make($this->formData, $this->rules());
-        $validation->validate();
+        $this->validation = $this->validator->make($this->formData, $this->rules());
+        $this->validation->validate();
 
-        if ($validation->fails()) 
+        if ($this->validation->fails()) 
         {
             // handling errors
-            $this->errors = $validation->errors()->all();
+            $this->errors = $this->validation->errors()->all();
             return false;
         }
         
         return true;
+    }
+
+    public function validated(): array
+    {
+        return $this->validation->getValidData();
     }
 }

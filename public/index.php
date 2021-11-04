@@ -2,8 +2,9 @@
 
 use Dotenv\Dotenv;
 use App\Core\Application;
-use App\Controllers\LoginController;
 use App\Controllers\ShopController;
+use App\Controllers\LoginController;
+use App\Controllers\RegisterController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
@@ -30,6 +31,10 @@ $app = new Application(dirname(__DIR__), $config);
 $app->router->get('/login', [LoginController::class, 'index']);
 $app->router->post('/login', [LoginController::class, 'login']);
 
+$app->router->get('/register', [RegisterController::class, 'index']);
+$app->router->post('/register', [RegisterController::class, 'register']);
+
+$app->router->get('/shop', [ShopController::class, '__invoke']);
 
 $app->router->get('/cart', [CartController::class, '__invoke']);
 

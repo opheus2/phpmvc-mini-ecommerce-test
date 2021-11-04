@@ -19,20 +19,15 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->layout = 'auth';
-        $validator = new LoginRequest($request->getBody());
-        $validator->validate();
-        if (!$validator->validate()) {
+        $request = new LoginRequest($request->getBody());
+        $request->validate();
+        if (!$request->validate()) {
             return $this->render('login', [], [
-                'errors' => $validator->errors
+                'errors' => $request->errors
             ]);
         }
 
-        // echo "<pre>";
-        // print_r($request->getBody()['email']);
-        // echo "</pre>";
-        // exit;
-
-        $user = User::findOne(['email' => $request->getBody()['email']]);
+        $user = User::findOne(['email' => $request->validated()['email']]);
 
         if (empty($user)) {
             return $this->render('login', [], [
@@ -42,7 +37,7 @@ class LoginController extends Controller
             ]);
         }
 
-        if (!password_verify($request->password, $user->password)) {
+        if (!password_verify($request->validated()['password'], $user->password)) {
             return $this->render('login', [], [
                 'errors' => [
                     'user' => 'These credentials does not match a record!'

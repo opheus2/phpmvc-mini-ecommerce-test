@@ -4,8 +4,9 @@ namespace App\Core\Db;
 
 use App\core\Model;
 use App\Core\Application;
+use Exception;
 
-abstract class DbModel extends Model
+abstract class DbModel
 {
     abstract public static function tableName(): string;
 
@@ -13,17 +14,18 @@ abstract class DbModel extends Model
 
     abstract public function primaryKey(): string;
 
-    public function save()
+    public function save(array $data)
     {
+        $this->validateAttribute($data);
         $tableName = $this->tableName();
-        $attributes = $this->attributes();
+        $attributes = array_keys($data);
 
         $params = array_map(fn($attr) => ":$attr", $attributes);
         $statement = $this->prepare("INSERT INTO $tableName (" . implode(',', $attributes) . ")
             VALUES(" . implode(',', $params) . ");");
 
-        foreach ($attributes as $attribute) {
-            $statement->bindValue(":$attribute", $this->{$attribute});
+        foreach ($data as $key => $value) {
+            $statement->bindValue(":$key", $value);
         }
         
         $statement->execute();
@@ -44,6 +46,15 @@ abstract class DbModel extends Model
         $statement->execute();
 
         return $statement->fetchObject(static::class);
+    }
+
+    public function validateAttribute(array $data)
+    {
+        $notMatchedAttributes = array_diff($data, $this->attributes());
+        if (!empty($notMatchedAttributes)) {
+            $fields = (string) implode(',', $notMatchedAttributes);
+            throw new Exception("The following attributes {$fields} are not available.", 400);
+        }
     }
 
     public static function prepare($sql)
