@@ -31,10 +31,10 @@
                     </button>
                 </div>
                 <div class="mt-4 flex justify-between">
-                    <div x-data="{ temp: product.average_rating, orig: product.average_rating, allowRating: true }" class="flex cursor-pointer text-4xl" @click="() => {if(!allowRating) {return false}; orig = temp; rateProduct(product.id, temp); allowRating = false;}">
+                    <div x-data="{ temp: product.average_rating, orig: product.average_rating, allowRating: true }" class="flex cursor-pointer text-4xl" @click="orig = temp; rateProduct(product.id, temp);">
                         <input type="number" :value="orig" class="hidden" />
                         <template x-for="item in [1,2,3,4,5]">
-                            <span @mouseenter="() => {if(!allowRating) {return false}; temp = item;}" @mouseleave="() => {if(!allowRating) {return false}; temp = orig;}" class="text-gray-300 text-base" :class="{'text-purple-600': (temp >= item)}">★</span>
+                            <span @mouseenter="temp = item" @mouseleave="temp = orig" class="text-gray-300 text-base" :class="{'text-purple-600': (temp >= item)}">★</span>
                         </template>
                     </div>
                     <template x-if="product.average_rating == 0">
@@ -50,8 +50,10 @@
 </div>
 <script>
     var datas = <?php echo json_encode($products) ?>;
+    var user = <?php echo json_encode($user) ?>;
     document.addEventListener("alpine:init", () => {
         Alpine.store('app').products = datas
+        Alpine.store('app').user = user
     });
 </script>
 <?php include 'includes/shop/cart.view.php' ?>

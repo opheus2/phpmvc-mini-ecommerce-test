@@ -163,7 +163,9 @@
                 async fetchCart() {
                     const cartRes = await fetch(`${BASE_URL}/carts`)
                     const cart = await cartRes.json()
-                    this.cart = cart
+                    this.cart = cart.cart
+                    Alpine.store('app').totalCartItems = cart.total_cart_items
+                    Alpine.store('app').totalItemsCost = cart.total_items_cost
                     this.openCart = true
                 },
                 async removeProductFromCart(id) {
@@ -178,14 +180,12 @@
                 async updateProductQuantity(id, quantity) {
                     const cartRes = await fetch(`${BASE_URL}/carts/update?id=${id}&quantity=${quantity}`)
                     const cart = await cartRes.json()
-                    console.log(cart)
                     if (cart.status === true) {
                         Alpine.store('app').totalCartItems = cart.total_cart_items
                         Alpine.store('app').totalItemsCost = cart.total_items_cost
                     }
                 },
                 async rateProduct(id, rating) {
-                    console.log(`${id} ${rating}`)
                     const formData = new FormData()
                     formData.append('id', id)
                     formData.append('rating', rating)
@@ -194,7 +194,6 @@
                         body: formData,
                     })
                     const data = ratingRes.json()
-                    console.log(data)
                     if (data.status === true) {
                         //
                     }

@@ -27,7 +27,12 @@ class CartController extends Controller
      */
     public function index()
     {
-        return json_encode(app()->session->get('_cart'));
+        $carts = app()->session->get('_cart');
+        return json_encode([
+                'cart' => app()->session->get('_cart'),
+                'total_cart_items' => $this->getTotalOf($carts, 'quantity'),
+                'total_items_cost' => $this->getTotalOf($carts, 'total_price'),
+            ]);
     }
     
     /**
