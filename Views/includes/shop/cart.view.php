@@ -1,4 +1,4 @@
-<div @keydown.window.escape="openCart = false" x-show="openCart" class="fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" x-ref="dialog" aria-modal="true">
+<div x-cloak @keydown.window.escape="openCart = false" x-show="openCart" class="fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" x-ref="dialog" aria-modal="true">
     <div class="absolute inset-0 overflow-hidden">
 
         <div x-show="openCart" x-transition:enter="ease-in-out duration-500" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in-out duration-500" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" x-description="Background overlay, show/hide based on slide-over state." class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="openCart = false" aria-hidden="true">

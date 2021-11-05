@@ -24,7 +24,12 @@ abstract class FormRequest extends Request
     }
 
     abstract public function rules(): array;
-
+    
+    /**
+     * Validate all input against rules and return bool
+     *
+     * @return bool
+     */
     public function validate(): bool
     {
         $this->validation = $this->validator->make($this->formData, $this->rules());
@@ -40,6 +45,12 @@ abstract class FormRequest extends Request
         return true;
     }
 
+        
+    /**
+     * Return validated data only
+     *
+     * @return array
+     */
     public function validated(): array
     {
         return $this->validation->getValidData();
