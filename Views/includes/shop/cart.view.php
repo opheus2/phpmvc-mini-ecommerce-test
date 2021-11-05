@@ -8,7 +8,7 @@
 
             <div x-show="openCart" x-transition:enter="transform transition ease-in-out duration-500 sm:duration-700" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full" class="w-screen max-w-md" x-description="Slide-over panel, show/hide based on slide-over state.">
                 <div class="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
-                    <form action="#" method="POST">
+                    <form @submit.prevent="checkoutCart()">
                         <div class="flex-1 py-6 overflow-y-auto px-4 sm:px-6">
                             <div class="flex items-start justify-between">
                                 <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">
@@ -63,7 +63,7 @@
                         <template x-if="Object.values(cart).length > 0">
                             <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
                                 <div class="flex text-base font-medium text-gray-900 mb-3">
-                                    <select x-on:change="deliveryFee = parseInt($event.target.selectedOptions[0].getAttribute('cost'))" name="delivery_mode" id="delivery_mode" class="max-w-lg block p-2 focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
+                                    <select x-ref="deliveryMethod" x-on:change="deliveryFee = parseInt($event.target.selectedOptions[0].getAttribute('cost'))" name="delivery_mode" id="delivery_mode" class="max-w-lg block p-2 focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
                                         <option value="" cost="0">Select delivery method</option>
                                         <option value="pickup" cost="0">Pickup (free)</option>
                                         <option value="home_delivery" cost="5">Shipping UPS ($5)</option>
@@ -84,6 +84,11 @@
                                     <p>
                                         or <button type="button" class="text-indigo-600 font-medium hover:text-indigo-500" @click="openCart = false">Continue Shopping<span aria-hidden="true"> →</span></button>
                                     </p>
+                                </div>
+                                <div class="flex flex-col gap-1 mb-2">
+                                    <template x-for="(error, index) in checkoutErrors" :key="index">
+                                        <div class="text-red-500 text-sm" x-text="error"></div>
+                                    </template>
                                 </div>
                             </div>
                         </template>

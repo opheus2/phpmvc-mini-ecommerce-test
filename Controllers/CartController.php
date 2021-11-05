@@ -29,8 +29,8 @@ class CartController extends Controller
         $carts = app()->session->get('_cart');
         return json_encode([
                 'cart' => app()->session->get('_cart'),
-                'total_cart_items' => $this->getTotalOf($carts, 'quantity'),
-                'total_items_cost' => $this->getTotalOf($carts, 'total_price'),
+                'total_cart_items' => getTotalOf($carts, 'quantity'),
+                'total_items_cost' => getTotalOf($carts, 'total_price')
             ]);
     }
     
@@ -49,7 +49,6 @@ class CartController extends Controller
         //check if a cart with the product id already exist
         if (isset($carts[$id])) 
         {
-
             //populate only quantity and total_price if found
             $carts[$id]['quantity'] += 1;
             $carts[$id]['total_price'] = floatval($carts[$id]['amount'] * $carts[$id]['quantity']);
@@ -58,8 +57,8 @@ class CartController extends Controller
             app()->session->create('_cart', $carts);
             return json_encode([
                 'status' => true,
-                'total_cart_items' => $this->getTotalOf($carts, 'quantity'),
-                'total_items_cost' => $this->getTotalOf($carts, 'total_price'),
+                'total_cart_items' => getTotalOf($carts, 'quantity'),
+                'total_items_cost' => getTotalOf($carts, 'total_price')
             ]);
         }
 
@@ -70,7 +69,7 @@ class CartController extends Controller
         $product['currency'] = (array) Currency::findOne(['id' => $product['currency_id']]); 
         
         //load all product ratings relationship if any
-        $product['ratings'] = ProductRating::findAll(['id' => $product['product_id']]);
+        $product['ratings'] = ProductRating::findAll(['product_id' => $product['id']]);
 
         if (!empty($product)) 
         {
@@ -84,8 +83,8 @@ class CartController extends Controller
             //return status along side the new total for cart
             return json_encode([
                 'status' => true,
-                'total_cart_items' => $this->getTotalOf($carts, 'quantity'),
-                'total_items_cost' => $this->getTotalOf($carts, 'total_price'),
+                'total_cart_items' => getTotalOf($carts, 'quantity'),
+                'total_items_cost' => getTotalOf($carts, 'total_price')
             ]);
         }
 
@@ -108,8 +107,8 @@ class CartController extends Controller
 
         return json_encode([
             'status' => true,
-            'total_cart_items' => $this->getTotalOf($carts, 'quantity'),
-            'total_items_cost' => $this->getTotalOf($carts, 'total_price'),
+            'total_cart_items' => getTotalOf($carts, 'quantity'),
+            'total_items_cost' => getTotalOf($carts, 'total_price')
         ]);
     }
     
@@ -140,35 +139,13 @@ class CartController extends Controller
             app()->session->create('_cart', $carts);
             return json_encode([
                 'status' => true,
-                'total_cart_items' => $this->getTotalOf($carts, 'quantity'),
-                'total_items_cost' => $this->getTotalOf($carts, 'total_price'),
+                'total_cart_items' => getTotalOf($carts, 'quantity'),
+                'total_items_cost' => getTotalOf($carts, 'total_price')
             ]);
         }
 
         return json_encode([
             'status' => false
         ]);
-    }
-    
-    /**
-     * Get the total of an integer field using php array_reduce
-     *
-     * @param  array $cart
-     * @param  string $field
-     */
-    protected function getTotalOf(array $cart, string $field): float
-    {
-        //reduce and round the output to 2 decimal points
-        return
-            round(
-                array_reduce(
-                    $cart,
-                    function ($accumulator, $item) use ($field) {
-                        return $accumulator + $item[$field];
-                    },
-                    0
-                ),
-                2
-            );
     }
 }

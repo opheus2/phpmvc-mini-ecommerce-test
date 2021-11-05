@@ -3,6 +3,7 @@
 use Dotenv\Dotenv;
 use App\Core\Application;
 use App\Controllers\CartController;
+use App\Controllers\CheckoutController;
 use App\Controllers\ShopController;
 use App\Controllers\LoginController;
 use App\Controllers\LogoutController;
@@ -45,7 +46,10 @@ $app->router->post('/register', [RegisterController::class, 'register']);
 
 
 /** Begin Shop Routes */
+
 $app->router->get('/shop', [ShopController::class, '__invoke']);
+$app->router->post('/shop/checkout', [CheckoutController::class, '__invoke']);
+
 $app->router->get('/products', [ProductController::class, 'index']);
 $app->router->post('/products/rate', [ProductController::class, 'rateProduct']);
 

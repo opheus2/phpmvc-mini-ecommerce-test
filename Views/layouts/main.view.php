@@ -148,60 +148,80 @@
                 openCart: false,
                 showMobileMenu: false,
                 showProductModal: false,
+                showSuccessModal: false,
                 products: [],
                 cart: [],
+                checkoutErrors: [],
                 deliveryFee: 0,
-                async addProductToCart(e, id) {
-                    console.log(e)
-                    
-                    const cartRes = await fetch(`${BASE_URL}/carts/add?id=${id}`)
-                    const cart = await cartRes.json()
-                    if (cart.status === true) {
-                        Alpine.store('app').totalCartItems += 1
-                        Alpine.store('app').totalCartItems = cart.total_cart_items
-                        Alpine.store('app').totalItemsCost = cart.total_items_cost
-                    }
+                updateStoreData(cartItems, ItemsCost) {
+                    Alpine.store('app').totalCartItems = cartItems
+                    Alpine.store('app').totalItemsCost = ItemsCost
+                },
+                async addProductToCart(id) {
+                    await fetch(`${BASE_URL}/carts/add?id=${id}`)
+                        .then((response) => response.json())
+                        .then(data => {
+                            Alpine.store('app').totalCartItems += 1
+                            this.updateStoreData(data.total_cart_items, data.total_items_cost)
+                        })
                 },
                 async fetchCart() {
-                    const cartRes = await fetch(`${BASE_URL}/carts`)
-                    const cart = await cartRes.json()
-                    this.cart = cart.cart
-                    Alpine.store('app').totalCartItems = cart.total_cart_items
-                    Alpine.store('app').totalItemsCost = cart.total_items_cost
-                    this.openCart = true
+                    await fetch(`${BASE_URL}/carts`)
+                        .then((response) => response.json())
+                        .then(data => {
+                            this.cart = data.cart
+                            this.updateStoreData(data.total_cart_items, data.total_items_cost)
+                            this.openCart = true
+                        })
+                        .catch((error) => console.log(error))
                 },
                 async removeProductFromCart(id) {
-                    const cartRes = await fetch(`${BASE_URL}/carts/remove?id=${id}`)
-                    const cart = await cartRes.json()
-                    if (cart.status === true) {
-                        this.cart = Object.values(this.cart).filter(p => p.id !== id)
-                        Alpine.store('app').totalCartItems = cart.total_cart_items
-                        Alpine.store('app').totalItemsCost = cart.total_items_cost
-                    }
+                    await fetch(`${BASE_URL}/carts/remove?id=${id}`)
+                        .then((response) => response.json())
+                        .then(data => {
+                            this.updateStoreData(data.total_cart_items, data.total_items_cost)
+                            this.cart = Object.values(this.cart).filter(p => p.id !== id)
+                        })
+                        .catch((error) => console.log(error))
                 },
                 async updateProductQuantity(id, quantity) {
-                    const cartRes = await fetch(`${BASE_URL}/carts/update?id=${id}&quantity=${quantity}`)
-                    const cart = await cartRes.json()
-                    if (cart.status === true) {
-                        Alpine.store('app').totalCartItems = cart.total_cart_items
-                        Alpine.store('app').totalItemsCost = cart.total_items_cost
-                    }
+                    await fetch(`${BASE_URL}/carts/update?id=${id}&quantity=${quantity}`)
+                        .then((response) => response.json())
+                        .then(data => {
+                            this.updateStoreData(data.total_cart_items, data.total_items_cost)
+                        })
+                        .catch((error) => console.log(error))
+
                 },
                 async rateProduct(id, rating) {
                     const formData = new FormData()
                     formData.append('id', id)
                     formData.append('rating', rating)
-                    const ratingRes = await fetch(`${BASE_URL}/products/rate`, {
-                        method: 'POST',
-                        body: formData,
-                    })
-                    const data = ratingRes.json()
-                    if (data.status === true) {
-                        //
-                    }
+                    await fetch(`${BASE_URL}/products/rate`, {
+                            method: 'POST',
+                            body: formData,
+                        }).then((response) => response.json())
+                        .then(data => console.log(data))
+                        .catch((error) => console.log(error))
                 },
-                async checkout() {
-                    //
+                async checkoutCart() {
+                    const formData = new FormData()
+                    formData.append('delivery_method', this.$refs.deliveryMethod.value)
+                    await fetch(`${BASE_URL}/shop/checkout`, {
+                            method: 'POST',
+                            body: formData,
+                        }).then((response) => response.json())
+                        .then(data => {
+                            console.log(data)
+                            if (data.status !== true) {
+                                checkoutErrors = data.checkout_errors
+                            }
+                            Alpine.store('app').user = data.user
+                            this.updateStoreData(data.total_cart_items, data.total_items_cost)
+                            this.openCart = false
+                            this.cart = {}
+                        })
+
                 }
             };
         }

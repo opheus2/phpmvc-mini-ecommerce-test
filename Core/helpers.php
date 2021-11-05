@@ -9,8 +9,7 @@ if (!function_exists('app')) {
     }
 }
 
-if (!function_exists('truncate_number')) 
-{
+if (!function_exists('truncate_number')) {
     function truncate_number($number, $precision = 2)
     {
         // Zero causes issues, and no need to truncate
@@ -31,10 +30,8 @@ if (!function_exists('truncate_number'))
 if (!function_exists('searchForKeyInObj')) {
     function searchForKeyInObj($search, $object, $array)
     {
-        foreach ($array as $key => $val) 
-        {
-            if ($val->$object === $search) 
-            {
+        foreach ($array as $key => $val) {
+            if ($val->$object === $search) {
                 return $key;
             }
         }
@@ -45,13 +42,36 @@ if (!function_exists('searchForKeyInObj')) {
 if (!function_exists('searchForKeyInArr')) {
     function searchForKeyInArr($search, $element, $array)
     {
-        foreach ($array as $key => $val) 
-        {
-            if ($val[$element] === $search) 
-            {
+        foreach ($array as $key => $val) {
+            if ($val[$element] === $search) {
                 return $key;
             }
         }
         return null;
+    }
+}
+
+
+if (!function_exists('getTotalOf')) {
+    /**
+     * Get the total of an integer field using php array_reduce
+     *
+     * @param  array $cart
+     * @param  string $field
+     */
+    function getTotalOf(array $cart, string $field): float
+    {
+        //reduce and round the output to 2 decimal points
+        return
+            round(
+                array_reduce(
+                    $cart,
+                    function ($accumulator, $item) use ($field) {
+                        return $accumulator + $item[$field];
+                    },
+                    0
+                ),
+                2
+            );
     }
 }

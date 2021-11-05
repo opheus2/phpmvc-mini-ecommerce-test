@@ -70,10 +70,10 @@ class ProductController extends Controller
 
                 //update the product with the new average calculation
                 $product = Product::update($calculatedRatings, ['id' => $id]);
-                if (!empty($product)) 
+                if ($product) 
                 {
                     return json_encode([
-                        'status' => true,
+                        'status' => true
                     ]);
                 }
             }

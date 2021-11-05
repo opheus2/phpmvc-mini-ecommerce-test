@@ -3348,7 +3348,7 @@ alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].plugin(_alpinejs_persist__WEBPA
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].store("app", {
   products: [],
-  user: alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].$persist(),
+  user: alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].$persist({}),
   totalCartItems: alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].$persist(0),
   totalItemsCost: alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].$persist(0)
 });

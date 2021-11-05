@@ -85,7 +85,7 @@ abstract class DbModel
         }
         $statement->execute();
 
-        return $statement->fetchObject(static::class);
+        return true;
     }
 
     public static function getAll()

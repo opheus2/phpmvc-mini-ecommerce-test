@@ -21,10 +21,10 @@ class Order extends DbModel
         return [
             'user_id',
             'products',
-            'amount',
             'delivery_method',
             'delivery_fee',
-            'total_charge'
+            'total_charge',
+            'total_items',
         ];
     }
 }

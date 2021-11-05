@@ -24,9 +24,9 @@ class ShopController extends Controller
      * __invoke view all shop products
      * list all products for php template rendering
      *
-     * @return mixed
+     * 
      */
-    public function __invoke(): mixed
+    public function __invoke()
     {
         $productsWithRelations = [];
         $products = Product::getAll();
