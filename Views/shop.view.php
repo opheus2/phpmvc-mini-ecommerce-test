@@ -57,3 +57,4 @@
     });
 </script>
 <?php include 'includes/shop/cart.view.php' ?>
+<?php include 'includes/shop/success-modal.view.php' ?>

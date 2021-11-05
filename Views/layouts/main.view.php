@@ -219,6 +219,7 @@
                             Alpine.store('app').user = data.user
                             this.updateStoreData(data.total_cart_items, data.total_items_cost)
                             this.openCart = false
+                            this.showSuccessModal = true
                             this.cart = {}
                         })
 
