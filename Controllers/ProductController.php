@@ -65,15 +65,24 @@ class ProductController extends Controller
             ]);
 
             //calculate the average rate and total rate count if the new rating was successful
-            if ($rating) {
+            if ($rating) 
+            {
                 $calculatedRatings = (new Product)->getCalculatedRatings($id);
 
                 //update the product with the new average calculation
                 $product = Product::update($calculatedRatings, ['id' => $id]);
                 if ($product) 
                 {
+                    $updatedProduct = (array) Product::findOne(['id' => $id]);
+                    //add currency data to products array
+                    $updatedProduct['currency'] = Currency::findOne(['id' => $updatedProduct['currency_id']]);
+
+                    //add all product ratings relationship
+                    $updatedProduct['ratings'] = ProductRating::findAll(['product_id' => $updatedProduct['id']]);
+
                     return json_encode([
-                        'status' => true
+                        'status' => true,
+                        'product' => $updatedProduct,
                     ]);
                 }
             }

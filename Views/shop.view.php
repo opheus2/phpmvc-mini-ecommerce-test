@@ -31,7 +31,7 @@
                     </button>
                 </div>
                 <div class="mt-4 flex justify-between">
-                    <div x-data="{ temp: product.average_rating, orig: product.average_rating, allowRating: true }" class="flex cursor-pointer text-4xl" @click="orig = temp; rateProduct(product.id, temp);">
+                    <div x-data="{ temp: product.average_rating, orig: product.average_rating, allowRating: true }" class="flex cursor-pointer text-4xl" @click="orig = temp; rateProduct(product.id, temp, index);">
                         <input type="number" :value="orig" class="hidden" />
                         <template x-for="item in [1,2,3,4,5]">
                             <span @mouseenter="temp = item" @mouseleave="temp = orig" class="text-gray-300 text-base" :class="{'text-purple-600': (temp >= item)}">★</span>

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/css/app.css">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        [x-cloak] { 
+        [x-cloak] {
             display: none !important;
         }
     </style>
@@ -197,7 +197,7 @@
                         .catch((error) => console.log(error))
 
                 },
-                async rateProduct(id, rating) {
+                async rateProduct(id, rating, index) {
                     const formData = new FormData()
                     formData.append('id', id)
                     formData.append('rating', rating)
@@ -205,7 +205,9 @@
                             method: 'POST',
                             body: formData,
                         }).then((response) => response.json())
-                        .then(data => console.log(data))
+                        .then(data => {
+                            Alpine.store('app').products[index] = data.product
+                        })
                         .catch((error) => console.log(error))
                 },
                 async checkoutCart() {
@@ -216,7 +218,6 @@
                             body: formData,
                         }).then((response) => response.json())
                         .then(data => {
-                            console.log(data)
                             if (data.status !== true) {
                                 checkoutErrors = data.checkout_errors
                             }
