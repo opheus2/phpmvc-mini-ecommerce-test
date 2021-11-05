@@ -161,6 +161,13 @@
                     Alpine.store('app').totalCartItems = cartItems
                     Alpine.store('app').totalItemsCost = ItemsCost
                 },
+                allowRatingB(index) {
+                    const data = {
+                        ...Alpine.store('app').products[index]
+                    }
+                    const filter = data.ratings.filter(rating => rating.user_id == Alpine.store('app').user.id)
+                    return (Object.keys(filter).length === 0 && filter.constructor === Object)
+                },
                 async addProductToCart(id) {
                     await fetch(`${BASE_URL}/carts/add?id=${id}`)
                         .then((response) => response.json())
@@ -206,7 +213,9 @@
                             body: formData,
                         }).then((response) => response.json())
                         .then(data => {
-                            Alpine.store('app').products[index] = data.product
+                            if (data.status) {
+                                Alpine.store('app').products[index] = data.product
+                            }
                         })
                         .catch((error) => console.log(error))
                 },
@@ -227,7 +236,6 @@
                             this.showSuccessModal = true
                             this.cart = {}
                         })
-
                 }
             };
         }
