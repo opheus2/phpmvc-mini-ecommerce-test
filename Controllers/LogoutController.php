@@ -11,9 +11,9 @@ class LogoutController extends Controller
     /**
      * Remove session and redirect to login
      *
-     * @return Response
+     * @return mixed
      */
-    public function __invoke(): Response
+    public function __invoke()
     {
         app()->logout();
         

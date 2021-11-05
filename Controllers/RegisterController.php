@@ -14,9 +14,9 @@ class RegisterController extends Controller
     /**
      * Show registration page
      *
-     * @return View
+     * @return mixed
      */
-    public function index(): View
+    public function index()
     {
         $this->layout = 'auth';
         return $this->render('register');

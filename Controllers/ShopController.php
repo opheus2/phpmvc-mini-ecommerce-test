@@ -24,9 +24,9 @@ class ShopController extends Controller
      * __invoke view all shop products
      * list all products for php template rendering
      *
-     * @return View
+     * @return mixed
      */
-    public function __invoke(): View
+    public function __invoke(): mixed
     {
         $productsWithRelations = [];
         $products = Product::getAll();
@@ -35,7 +35,7 @@ class ShopController extends Controller
             $product['currency'] = Currency::findOne(['id' => $product['currency_id']]);
 
             //add all product ratings relationship
-            $product['ratings'] = ProductRating::findAll(['id' => $product['product_id']]);
+            $product['ratings'] = ProductRating::findAll(['product_id' => $product['id']]);
             $productsWithRelations[] = $product;
         }
         

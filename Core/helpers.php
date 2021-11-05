@@ -26,3 +26,27 @@ if (!function_exists('truncate_number')) {
         return floor($number * $precision) / $precision * $negative;
     }
 }
+
+if (!function_exists('searchForKeyInObj')) {
+    function searchForKeyInObj($search, $object, $array)
+    {
+        foreach ($array as $key => $val) {
+            if ($val->$object === $search) {
+                return $key;
+            }
+        }
+        return null;
+    }
+}
+
+if (!function_exists('searchForKeyInArr')) {
+    function searchForKeyInArr($search, $element, $array)
+    {
+        foreach ($array as $key => $val) {
+            if ($val[$element] === $search) {
+                return $key;
+            }
+        }
+        return null;
+    }
+}

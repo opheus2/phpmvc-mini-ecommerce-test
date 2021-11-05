@@ -23,9 +23,9 @@ class CartController extends Controller
      * Return all cart session data to cart preview
      * or popup via ajax
      *
-     * @return string
+     * @return mixed
      */
-    public function index(): string
+    public function index()
     {
         return json_encode(app()->session->get('_cart'));
     }
@@ -34,9 +34,9 @@ class CartController extends Controller
      * Add the product to the cart's session
      *
      * @param  Request $request
-     * @return string
+     * @return mixed
      */
-    public function addProductToCart(Request $request): string
+    public function addProductToCart(Request $request)
     {
         $id = $request->getBody()['id'];
 
@@ -89,7 +89,7 @@ class CartController extends Controller
         ]);
     }
 
-    public function removeProductFromCart(Request $request): string
+    public function removeProductFromCart(Request $request)
     {
         $id = $request->getBody()['id'];
         //find session data of cart 
@@ -116,9 +116,9 @@ class CartController extends Controller
      * inputting +=1 for each request.
      *
      * @param  Request $request
-     * @return string
+     * @return mixed
      */
-    public function updateProductQuantity(Request $request): string
+    public function updateProductQuantity(Request $request)
     {
         $id = $request->getBody()['id'];
         $quantity = $request->getBody()['quantity'];

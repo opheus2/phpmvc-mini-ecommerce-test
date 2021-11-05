@@ -42,7 +42,7 @@ class ProductController extends Controller
      * @param  Request $request
      * @return string
      */
-    public function rateProduct(Request $request): string
+    public function rateProduct(Request $request)
     {
         $id = $request->getBody()['id'];
         $rating = $request->getBody()['rating'];

@@ -9,7 +9,7 @@ use App\Requests\LoginRequest;
 
 class LoginController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         //set layout to auth layout before layout rendering
         $this->layout = 'auth';
