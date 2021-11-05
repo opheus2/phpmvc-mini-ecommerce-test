@@ -8,7 +8,8 @@ class Request
     {
         $path = $_SERVER['REQUEST_URI'] ?? '/';
         $position = strpos($path, '?');
-        if ($position === false) {
+        if ($position === false) 
+        {
             return $path;
         }
         return substr($path, 0, $position);
@@ -33,14 +34,18 @@ class Request
     {
         $body = [];
 
-        if ($this->method() === 'GET') {
-            foreach ($_GET as $key => $value) {
+        if ($this->method() === 'GET') 
+        {
+            foreach ($_GET as $key => $value) 
+            {
                 $body[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
         }
 
-        if ($this->method() === 'POST') {
-            foreach ($_POST as $key => $value) {
+        if ($this->method() === 'POST') 
+        {
+            foreach ($_POST as $key => $value) 
+            {
                 $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
         }

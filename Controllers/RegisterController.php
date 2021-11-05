@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\core\Controller;
 use App\core\Request;
-use App\Core\View;
 use App\Models\User;
 use App\Requests\RegisterRequest;
 
@@ -36,7 +35,8 @@ class RegisterController extends Controller
         //validate request using form request
         $request = new RegisterRequest($request->getBody());
         $request->validate();
-        if (!$request->validate()) {
+        if (!$request->validate()) 
+        {
             //re-render the register page with the new errors
             return $this->render('register', [], [
                 'errors' => $request->errors
@@ -56,7 +56,8 @@ class RegisterController extends Controller
 
             //insert into the users table with guest data
             $user = (new User)->save($data);
-            if ($user) {
+            if ($user) 
+            {
 
                 //show a success message to new user via session flash
                 app()->session->setFlash('success', 'Registration successful. Please login');

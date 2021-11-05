@@ -35,13 +35,15 @@ if (!function_exists('seedDb')) {
     }
 }
 
-if (!function_exists('seedCurrenciesTable')) {
+if (!function_exists('seedCurrenciesTable')) 
+{
     function seedCurrenciesTable()
     {
         global $app;
         $app->db->log('Seeding currencies table');
         $currencies = array(['name' => 'United States Dollars', 'symbol' => '$']);
-        foreach ($currencies as $currency) {
+        foreach ($currencies as $currency) 
+        {
             $app->db->insert($currency, 'currencies');
         }
         $app->db->log('Seeded currencies table');
@@ -49,7 +51,8 @@ if (!function_exists('seedCurrenciesTable')) {
 }
 
 
-if (!function_exists('seedProductsTable')) {
+if (!function_exists('seedProductsTable')) 
+{
     function seedProductsTable()
     {
         'apple is 0.3$, a beer is 2$, water is 1$ each bottle and cheese is 3.74$ each kg';
@@ -94,7 +97,8 @@ if (!function_exists('seedProductsTable')) {
             ]
         ];
 
-        foreach ($products as $product) {
+        foreach ($products as $product) 
+        {
             $app->db->insert($product, 'products');
         }
         $app->db->log('Seeded products table');
@@ -102,7 +106,8 @@ if (!function_exists('seedProductsTable')) {
 }
 
 
-if (!function_exists('seedUsersTable')) {
+if (!function_exists('seedUsersTable')) 
+{
     function seedUsersTable()
     {
         global $app;
@@ -113,7 +118,8 @@ if (!function_exists('seedUsersTable')) {
             'email' => 'demo@demo.com',
             'password' => password_hash('123456', PASSWORD_BCRYPT),
         ]);
-        foreach ($users as $user) {
+        foreach ($users as $user) 
+        {
             $app->db->insert($user, 'users');
         }
         $app->db->log('Seeded users table');

@@ -18,14 +18,14 @@ class ProductController extends Controller
     {
         $this->registerMiddleWare(new AuthMiddleware());
     }
-    
+
     /**
      * Show single product via ajax
      *
      * @param  Request $request
-     * @return string
+     * @return mixed
      */
-    public function show(Request $request): string
+    public function show(Request $request)
     {
         $id = $request->getBody()['id'];
 
@@ -40,7 +40,7 @@ class ProductController extends Controller
      * add new rating to a product via ajax
      *
      * @param  Request $request
-     * @return string
+     * @return mixed
      */
     public function rateProduct(Request $request)
     {
@@ -70,7 +70,8 @@ class ProductController extends Controller
 
                 //update the product with the new average calculation
                 $product = Product::update($calculatedRatings, ['id' => $id]);
-                if (!empty($product)) {
+                if (!empty($product)) 
+                {
                     return json_encode([
                         'status' => true,
                     ]);

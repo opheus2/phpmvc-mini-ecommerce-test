@@ -23,7 +23,8 @@ abstract class DbModel
         $statement = $this->prepare("INSERT INTO $tableName (" . implode(',', $attributes) . ")
             VALUES(" . implode(',', $params) . ");");
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $key => $value) 
+        {
             $statement->bindValue(":$key", $value);
         }
 
@@ -38,7 +39,8 @@ abstract class DbModel
         $attributes = array_keys($where);
         $sql = implode(" AND ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
         $statement = self::prepare("SELECT * FROM $tableName WHERE $sql LIMIT 1");
-        foreach ($where as $key => $value) {
+        foreach ($where as $key => $value) 
+        {
             $statement->bindValue(":$key", $value);
         }
         
@@ -53,7 +55,8 @@ abstract class DbModel
         $attributes = array_keys($where);
         $sql = implode("AND ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
         $statement = self::prepare("SELECT * FROM $tableName WHERE $sql");
-        foreach ($where as $key => $value) {
+        foreach ($where as $key => $value) 
+        {
             $statement->bindValue(":$key", $value);
         }
         $statement->execute();
@@ -71,11 +74,13 @@ abstract class DbModel
         $whereSql = implode(", ", array_map(fn ($attr) => "$attr = :$attr", $whereAttributes));
         $statement = self::prepare("UPDATE $tableName SET $sql WHERE $whereSql");
 
-        foreach ($columns as $key => $value) {
+        foreach ($columns as $key => $value) 
+        {
             $statement->bindValue(":$key", $value);
         }
 
-        foreach ($where as $key => $value) {
+        foreach ($where as $key => $value) 
+        {
             $statement->bindValue(":$key", $value);
         }
         $statement->execute();
@@ -112,7 +117,8 @@ abstract class DbModel
     public function validateAttribute(array $data)
     {
         $notMatchedAttributes = array_diff($data, $this->attributes());
-        if (!empty($notMatchedAttributes)) {
+        if (!empty($notMatchedAttributes)) 
+        {
             $fields = (string) implode(',', $notMatchedAttributes);
             throw new Exception("The following attributes {$fields} are not available.", 400);
         }

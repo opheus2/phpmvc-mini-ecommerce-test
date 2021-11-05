@@ -151,7 +151,9 @@
                 products: [],
                 cart: [],
                 deliveryFee: 0,
-                async addProductToCart(id) {
+                async addProductToCart(e, id) {
+                    console.log(e)
+                    
                     const cartRes = await fetch(`${BASE_URL}/carts/add?id=${id}`)
                     const cart = await cartRes.json()
                     if (cart.status === true) {

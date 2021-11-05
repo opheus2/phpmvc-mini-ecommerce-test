@@ -38,15 +38,18 @@ class Router
         $path = $this->request->getPath();
         $method = $this->request->method();
         $callback = $this->routes[$method][$path] ?? false;
-        if ($callback === false) {
+        if ($callback === false) 
+        {
             throw new NotFoundException("Page not found");
         }
 
-        if (is_string($callback)) {
+        if (is_string($callback)) 
+        {
             return app()->view->renderView($callback);
         }
 
-        if (is_array($callback)) {
+        if (is_array($callback)) 
+        {
             /**@var \App\core\Controller $controller */
             $controller = new $callback[0]();
             app()->controller = $controller;
@@ -54,7 +57,8 @@ class Router
 
             $callback[0] = $controller;
 
-            foreach ($controller->getMiddlewares() as $middleware) {
+            foreach ($controller->getMiddlewares() as $middleware) 
+            {
                 $middleware->execute();
             }
         }

@@ -13,8 +13,10 @@ abstract class Model
 
     public function loadData($data)
     {
-        foreach ($data as $key => $value) {
-            if (property_exists($this, $key)) {
+        foreach ($data as $key => $value) 
+        {
+            if (property_exists($this, $key)) 
+            {
                 $this->{$key} = $value;
             }
         }
@@ -30,35 +32,44 @@ abstract class Model
 
     public function validate()
     {
-        foreach ($this->rules() as $attribute => $rules) {
+        foreach ($this->rules() as $attribute => $rules) 
+        {
             $value = $this->{$attribute};
-            foreach ($rules as $rule) {
+            foreach ($rules as $rule) 
+            {
                 $ruleName = $rule;
-                if (!is_string($ruleName)) {
+                if (!is_string($ruleName)) 
+                {
                     $ruleName = $rule[0];
                 }
 
-                if ($ruleName === self::RULE_REQUIRED && !$value) {
+                if ($ruleName === self::RULE_REQUIRED && !$value) 
+                {
                     $this->addRuleError($attribute, self::RULE_REQUIRED);
                 }
 
-                if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) 
+                {
                     $this->addRuleError($attribute, self::RULE_EMAIL);
                 }
 
-                if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min']) {
+                if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min']) 
+                {
                     $this->addRuleError($attribute, self::RULE_MIN, $rule);
                 }
 
-                if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max']) {
+                if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max']) 
+                {
                     $this->addRuleError($attribute, self::RULE_MAX, $rule);
                 }
 
-                if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) {
+                if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) 
+                {
                     $this->addRuleError($attribute, self::RULE_MATCH, $rule);
                 }
 
-                if ($ruleName === self::RULE_UNIQUE) {
+                if ($ruleName === self::RULE_UNIQUE) 
+                {
                     $className = $rule['class'];
                     $uniqueAttr = $rule['attribute'] ?? $attribute;
                     $tableName = $className::tableName();
@@ -86,7 +97,8 @@ abstract class Model
     private function addRuleError(string $attribute, string $rule, $params = [])
     {
         $message = $this->ruleMessages()[$attribute][$rule] ?? $this->errorMessages()[$rule];
-        foreach ($params as $key => $value) {
+        foreach ($params as $key => $value) 
+        {
             $message = str_replace("{{$key}}", strval($value), $message);
         }
         $this->errors[$attribute][] = $message;

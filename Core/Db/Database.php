@@ -31,8 +31,10 @@ class Database
 
         $newMigrations = [];
 
-        foreach ($notAppliedMigrations as $migration) {
-            if ($migration === '.' || $migration === '..') {
+        foreach ($notAppliedMigrations as $migration) 
+        {
+            if ($migration === '.' || $migration === '..') 
+            {
                 continue;
             }
 
@@ -46,7 +48,8 @@ class Database
             $newMigrations[] = $migration;
         }
 
-        if (!empty($newMigrations)) {
+        if (!empty($newMigrations)) 
+        {
             $this->saveMigrations($newMigrations);
         } else {
             $this->log("Nothing to migrate");
@@ -86,7 +89,8 @@ class Database
         $statement = $this->prepare("INSERT INTO $tableName (" . implode(',', $attributes) . ")
             VALUES(" . implode(',', $params) . ");");
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $key => $value) 
+        {
             $statement->bindValue(":$key", $value);
         }
 

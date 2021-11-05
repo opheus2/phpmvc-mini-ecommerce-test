@@ -12,7 +12,8 @@ class Session
     {
         session_start();
         $flashMessages = $_SESSION[self::FLASH_KEY] ?? [];
-        foreach ($flashMessages as $key => &$message) {
+        foreach ($flashMessages as $key => &$message) 
+        {
             $message['remove'] = true;
         }
         $_SESSION[self::FLASH_KEY] = $flashMessages;
@@ -54,8 +55,10 @@ class Session
     public function __destruct()
     {
         $flashMessages = $_SESSION[self::FLASH_KEY] ?? [];
-        foreach ($flashMessages as $key => &$message) {
-            if ($message['remove']) {
+        foreach ($flashMessages as $key => &$message) 
+        {
+            if ($message['remove']) 
+            {
                 unset($flashMessages[$key]);
             }
         }

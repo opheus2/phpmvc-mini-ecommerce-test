@@ -4,13 +4,13 @@ namespace App\Controllers;
 
 use App\Models\Product;
 use App\core\Controller;
-use App\Core\View;
+use App\core\Request;
 use App\Models\Currency;
 use App\Middlewares\AuthMiddleware;
 use App\Models\ProductRating;
 use App\Models\User;
 
-class ShopController extends Controller
+class CheckoutController extends Controller
 {
     /**
      * Instantiate constructor with middleware
@@ -26,7 +26,7 @@ class ShopController extends Controller
      *
      * @return mixed
      */
-    public function __invoke(): mixed
+    public function __invoke(Request $request)
     {
         $productsWithRelations = [];
         $products = Product::getAll();
@@ -39,7 +39,7 @@ class ShopController extends Controller
             $product['ratings'] = ProductRating::findAll(['product_id' => $product['id']]);
             $productsWithRelations[] = $product;
         }
-        
+
         //instantiate the _cart session if no session exists for cart
         if (!app()->session->get('_cart')) 
         {

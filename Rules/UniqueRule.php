@@ -21,7 +21,8 @@ class UniqueRule extends Rule
         $table = $this->parameter('table');
         $except = $this->parameter('except');
 
-        if ($except and $except == $value) {
+        if ($except and $except == $value) 
+        {
             return true;
         }
 

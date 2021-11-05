@@ -23,7 +23,6 @@ class CartController extends Controller
      * Return all cart session data to cart preview
      * or popup via ajax
      *
-     * @return mixed
      */
     public function index()
     {
@@ -39,7 +38,6 @@ class CartController extends Controller
      * Add the product to the cart's session
      *
      * @param  Request $request
-     * @return mixed
      */
     public function addProductToCart(Request $request)
     {
@@ -49,7 +47,8 @@ class CartController extends Controller
         $carts = app()->session->get('_cart');
 
         //check if a cart with the product id already exist
-        if (isset($carts[$id])) {
+        if (isset($carts[$id])) 
+        {
 
             //populate only quantity and total_price if found
             $carts[$id]['quantity'] += 1;
@@ -73,7 +72,8 @@ class CartController extends Controller
         //load all product ratings relationship if any
         $product['ratings'] = ProductRating::findAll(['id' => $product['product_id']]);
 
-        if (!empty($product)) {
+        if (!empty($product)) 
+        {
             $carts[$id] = $product;
             $carts[$id]['quantity'] = 1;
             $carts[$id]['total_price'] = $product['amount'];
@@ -121,7 +121,6 @@ class CartController extends Controller
      * inputting +=1 for each request.
      *
      * @param  Request $request
-     * @return mixed
      */
     public function updateProductQuantity(Request $request)
     {
@@ -130,7 +129,8 @@ class CartController extends Controller
 
         //find session data of cart 
         $carts = app()->session->get('_cart');
-        if (isset($carts[$id])) {
+        if (isset($carts[$id])) 
+        {
             $carts[$id]['quantity'] = $quantity;
 
             //get total price of items by multiplying the quantity of the product by the amount
@@ -155,7 +155,6 @@ class CartController extends Controller
      *
      * @param  array $cart
      * @param  string $field
-     * @return float
      */
     protected function getTotalOf(array $cart, string $field): float
     {

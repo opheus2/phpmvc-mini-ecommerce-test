@@ -20,9 +20,11 @@ class Order extends DbModel
     {
         return [
             'user_id',
-            'product_id',
-            'rating',
-            'comment'
+            'products',
+            'amount',
+            'delivery_method',
+            'delivery_fee',
+            'total_charge'
         ];
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Requests;
 
 use App\Core\FormRequest;
-use Rakit\Validation\Validator;
 
 class LoginRequest extends FormRequest
 {

@@ -24,7 +24,8 @@ class View
     protected function layoutContent()
     {
         $layout = app()->layout;
-        if (app()->controller) {
+        if (app()->controller) 
+        {
             $layout = app()->getController()->layout;
         }
         ob_start();
@@ -34,7 +35,8 @@ class View
 
     protected function renderOnlyView($view, $params)
     {
-        foreach ($params as $key => $value) {
+        foreach ($params as $key => $value) 
+        {
             $$key = $value;
         }
 

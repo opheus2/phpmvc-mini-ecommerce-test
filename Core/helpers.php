@@ -9,7 +9,8 @@ if (!function_exists('app')) {
     }
 }
 
-if (!function_exists('truncate_number')) {
+if (!function_exists('truncate_number')) 
+{
     function truncate_number($number, $precision = 2)
     {
         // Zero causes issues, and no need to truncate
@@ -30,8 +31,10 @@ if (!function_exists('truncate_number')) {
 if (!function_exists('searchForKeyInObj')) {
     function searchForKeyInObj($search, $object, $array)
     {
-        foreach ($array as $key => $val) {
-            if ($val->$object === $search) {
+        foreach ($array as $key => $val) 
+        {
+            if ($val->$object === $search) 
+            {
                 return $key;
             }
         }
@@ -42,8 +45,10 @@ if (!function_exists('searchForKeyInObj')) {
 if (!function_exists('searchForKeyInArr')) {
     function searchForKeyInArr($search, $element, $array)
     {
-        foreach ($array as $key => $val) {
-            if ($val[$element] === $search) {
+        foreach ($array as $key => $val) 
+        {
+            if ($val[$element] === $search) 
+            {
                 return $key;
             }
         }
