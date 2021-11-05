@@ -4,13 +4,21 @@ namespace App\Controllers;
 
 use App\core\Request;
 use App\core\Controller;
+use App\core\Response;
 
 class LogoutController extends Controller
-{
-    public function __invoke(Request $request)
+{    
+    /**
+     * Remove session and redirect to login
+     *
+     * @return Response
+     */
+    public function __invoke(): Response
     {
         app()->logout();
+        
+        //show success message on auth via session flash
         app()->session->setFlash('success', 'Logged out successfully!');
-        $this->redirect('/login');
+        return $this->redirect('/login');
     }
 }

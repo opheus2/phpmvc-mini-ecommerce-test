@@ -19,9 +19,9 @@ class ShopController extends Controller
     {
         $this->registerMiddleWare(new AuthMiddleware());
     }
-    
+
     /**
-     * __invoke
+     * __invoke view all shop products
      * list all products for php template rendering
      *
      * @return View
