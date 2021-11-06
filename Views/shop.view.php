@@ -12,6 +12,7 @@
                         <h3 class="text-sm text-gray-700">
                             <a href="#" x-text="product.name"></a>
                         </h3>
+                        <p class="mt-1 text-sm text-gray-500" x-text="product.category"></p>
                     </div>
                     <p class="text-sm font-medium text-gray-900" x-text="`${product.currency.symbol}${product.amount}`"></p>
                 </div>

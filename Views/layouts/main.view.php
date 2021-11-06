@@ -65,7 +65,7 @@
                 </div>
                 <div class="border-t border-gray-200 py-6 px-4">
                     <a href="#" class="-m-2 p-2 flex items-center">
-                        <img src="https://tailwindui.com/img/flags/flag-canada.svg" alt="" class="w-5 h-auto block flex-shrink-0">
+                        <img src="/images/united-states.svg" alt="" class="w-5 h-auto block flex-shrink-0">
                         <span class="ml-3 block text-base font-medium text-gray-900">
                             USD
                         </span>
