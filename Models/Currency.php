@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Core\Db\DbModel;
+use orpheusohms\phpmvc\Db\DbModel;
 
 class Currency extends DbModel
 {

@@ -1,6 +1,6 @@
 <?php 
 
-use App\Core\Application;
+use orpheusohms\phpmvc\Application;
 
 class m0001_create_users_table
 {

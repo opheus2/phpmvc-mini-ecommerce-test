@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\Product;
-use App\core\Controller;
-use App\core\Request;
+use orpheusohms\phpmvc\Controller;
+use orpheusohms\phpmvc\Request;
 use App\Models\Currency;
 use App\Middlewares\AuthMiddleware;
 use App\Models\Order;

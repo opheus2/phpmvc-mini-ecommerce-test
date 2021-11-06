@@ -1,6 +1,6 @@
 <?php
 
-use App\Core\Application;
+use orpheusohms\phpmvc\Application;
 
 class m0002_create_products_table
 {

@@ -1,6 +1,6 @@
 <?php
 
-use App\Core\Application;
+use orpheusohms\phpmvc\Application;
 use Dotenv\Dotenv;
 
 require_once __DIR__ . '/vendor/autoload.php';

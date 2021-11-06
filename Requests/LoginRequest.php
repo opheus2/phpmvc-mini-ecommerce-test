@@ -2,7 +2,7 @@
 
 namespace App\Requests;
 
-use App\Core\FormRequest;
+use orpheusohms\phpmvc\FormRequest;
 
 class LoginRequest extends FormRequest
 {

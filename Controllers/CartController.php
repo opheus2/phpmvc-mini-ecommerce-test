@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
-use App\core\Request;
+use orpheusohms\phpmvc\Request;
 use App\Models\Product;
-use App\core\Controller;
+use orpheusohms\phpmvc\Controller;
 use App\Models\Currency;
 use App\Models\ProductRating;
 use App\Middlewares\AuthMiddleware;

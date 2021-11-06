@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use App\core\Controller;
-use App\core\Request;
+use orpheusohms\phpmvc\Controller;
+use orpheusohms\phpmvc\Request;
 use App\Models\User;
 use App\Requests\RegisterRequest;
 

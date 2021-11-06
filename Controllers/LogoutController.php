@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\core\Controller;
+use orpheusohms\phpmvc\Controller;
 
 class LogoutController extends Controller
 {    

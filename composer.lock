@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b497ac5ba6ff0352f406d081e84fdae",
+    "content-hash": "5cf018472e38f1017f663862328f63e8",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -66,6 +66,43 @@
                 }
             ],
             "time": "2021-10-17T19:48:54+00:00"
+        },
+        {
+            "name": "orpheusohms/php-mvc-core",
+            "version": "v1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opheus2/phpmvc.git",
+                "reference": "c628e7f6149a80edd698371e55b18156ffda4316"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/opheus2/phpmvc/zipball/c628e7f6149a80edd698371e55b18156ffda4316",
+                "reference": "c628e7f6149a80edd698371e55b18156ffda4316",
+                "shasum": ""
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "orpheusohms\\phpmvc\\": "./"
+                },
+                "files": [
+                    "helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "opheus2",
+                    "email": "ominiabohsdavid@gmail.com"
+                }
+            ],
+            "description": "a mini php mvc framework",
+            "support": {
+                "issues": "https://github.com/opheus2/phpmvc/issues",
+                "source": "https://github.com/opheus2/phpmvc/tree/v1.0.6"
+            },
+            "time": "2021-11-06T10:36:27+00:00"
         },
         {
             "name": "phpoption/phpoption",

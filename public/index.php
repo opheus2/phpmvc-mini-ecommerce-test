@@ -1,7 +1,7 @@
 <?php
 
 use Dotenv\Dotenv;
-use App\Core\Application;
+use orpheusohms\phpmvc\Application;
 use App\Controllers\CartController;
 use App\Controllers\CheckoutController;
 use App\Controllers\ShopController;
@@ -47,6 +47,7 @@ $app->router->post('/register', [RegisterController::class, 'register']);
 
 /** Begin Shop Routes */
 
+$app->router->get('/', [ShopController::class, '__invoke']);
 $app->router->get('/shop', [ShopController::class, '__invoke']);
 $app->router->post('/shop/checkout', [CheckoutController::class, '__invoke']);
 

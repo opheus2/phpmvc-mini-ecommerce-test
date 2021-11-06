@@ -2,8 +2,8 @@
 
 namespace App\Middlewares;
 
-use App\Core\Application;
-use App\Core\BaseMiddleware;
+use orpheusohms\phpmvc\Application;
+use orpheusohms\phpmvc\BaseMiddleware;
 
 class AuthMiddleware extends BaseMiddleware
 {

@@ -1,6 +1,6 @@
 <?php
 
-use App\Core\Application;
+use orpheusohms\phpmvc\Application;
 
 class m0000_create_currencies_table
 {

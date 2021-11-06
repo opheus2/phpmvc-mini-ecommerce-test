@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\Product;
-use App\core\Controller;
-use App\Core\View;
+use orpheusohms\phpmvc\Controller;
+use orpheusohms\phpmvc\View;
 use App\Models\Currency;
 use App\Middlewares\AuthMiddleware;
 use App\Models\ProductRating;

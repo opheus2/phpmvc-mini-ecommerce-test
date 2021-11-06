@@ -3,10 +3,7 @@
   "autoload": {
     "psr-4": {
       "App\\": "./"
-    },
-    "files": [
-      "Core/helpers.php"
-    ]
+    }
   },
   "authors": [
     {
@@ -16,6 +13,7 @@
   ],
   "require": {
     "vlucas/phpdotenv": "^5.3",
-    "rakit/validation": "^1.4"
+    "rakit/validation": "^1.4",
+    "orpheusohms/php-mvc-core": "1.0.6"
   }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Core\Application;
+use orpheusohms\phpmvc\Application;
 
 class m0004_create_orders_table
 {

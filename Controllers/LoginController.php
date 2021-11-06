@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\User;
-use App\core\Request;
-use App\core\Controller;
+use orpheusohms\phpmvc\Request;
+use orpheusohms\phpmvc\Controller;
 use App\Requests\LoginRequest;
 
 class LoginController extends Controller
