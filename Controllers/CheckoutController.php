@@ -90,7 +90,6 @@ class CheckoutController extends Controller
                 return json_encode([
                     'status' => true,
                     'message' => 'Order was placed successfully!',
-                    'user' => json_encode($user),
                     'total_cart_items' => getTotalOf($newCart, 'quantity'),
                     'total_items_cost' => getTotalOf($newCart, 'total_price')
                 ]);
