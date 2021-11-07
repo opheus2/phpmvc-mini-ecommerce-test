@@ -134,7 +134,7 @@
                                     <span class="sr-only">items in cart, view bag</span>
                                 </a>
                             </div>
-                            <div class="ml-4 flow-root lg:ml-6 inline-flex">
+                            <div class="ml-4 flow-root lg:ml-6">
                                 <button @click="handleLogout()" type="button" class="group -m-2 p-2 flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
