@@ -13,6 +13,7 @@ class LogoutController extends Controller
      */
     public function __invoke()
     {
+        app()->session->remove('_cart');
         app()->logout();
         
         //show success message on auth via session flash

@@ -134,14 +134,14 @@
                                     <span class="sr-only">items in cart, view bag</span>
                                 </a>
                             </div>
-                            <form action="/logout" method="POST" class="ml-4 flow-root lg:ml-6 inline-flex">
-                                <button type="submit" class="group -m-2 p-2 flex items-center">
+                            <div class="ml-4 flow-root lg:ml-6 inline-flex">
+                                <button @click="handleLogout()" type="button" class="group -m-2 p-2 flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                     </svg>
                                     <span class="sr-only">items in cart, view bag</span>
                                 </button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -178,6 +178,16 @@
                     const filter = data.ratings.filter(rating => rating.user_id == Alpine.store('app').user.id)
                     return (Object.keys(filter).length === 0)
                 },
+                handleLogout() {
+                    Alpine.store('app').user = {}
+                    Alpine.store('app').totalCartItems = 0
+                    Alpine.store('app').totalItemsCost = 0
+                    fetch(`${BASE_URL}/logout`, {
+                        method: 'POST',
+                        body: {},
+                    })
+                    location.replace('/login')
+                },
                 async fetchUser() {
                     await fetch(`${BASE_URL}/user`)
                         .then((response) => response.json())
@@ -204,6 +214,7 @@
                         })
                 },
                 async fetchCart() {
+                    this.deliveryFee = 0
                     await fetch(`${BASE_URL}/carts`)
                         .then((response) => response.json())
                         .then(data => {

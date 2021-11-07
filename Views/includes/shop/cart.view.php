@@ -71,11 +71,11 @@
                                 </div>
                                 <div class="flex justify-between text-base font-medium text-gray-900 mt-1">
                                     <p>Subtotal</p>
-                                    <p x-text="$store.app.totalItemsCost + deliveryFee"></p>
+                                    <p x-text="`$${($store.app.totalItemsCost + deliveryFee).toFixed(2)}`"></p>
                                 </div>
                                 <div class="flex justify-between text-base font-medium text-gray-600 mt-4">
                                     <p>Available Balance</p>
-                                    <p x-text="$store.app.user.account_balance"></p>
+                                    <p x-text="`$${$store.app.user.account_balance}`"></p>
                                 </div>
                                 <div class="flex flex-col gap-1 mt-4">
                                     <template x-for="(error, index) in checkoutErrors" :key="index">
