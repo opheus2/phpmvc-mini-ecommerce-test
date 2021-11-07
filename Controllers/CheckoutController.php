@@ -49,7 +49,7 @@ class CheckoutController extends Controller
                 return json_encode([
                     'status' => false,
                     'checkout_errors' => [
-                        'balance' => 'You have insufficient balance!'
+                        'balance' => 'Oops your balance is insufficient!'
                     ]
                 ]);
             }

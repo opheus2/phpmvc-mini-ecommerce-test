@@ -46,7 +46,7 @@
                                                     <div class="flex-1 flex items-end justify-between text-sm">
                                                         <p class="text-gray-500">
                                                             <span class="mr-1">Qty</span>
-                                                            <input x-on:change="(e) => {updateProductQuantity(product.id, $event.target.value); quantity = $event.target.value;}" type="number" min="1" :value="`${quantity}`" class="w-14 px-2 py-1 inline-flex shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                                                            <input x-on:focus="orderReady = false" x-on:blur="orderReady = true" x-on:change="(e) => {updateProductQuantity(product.id, $event.target.value); quantity = $event.target.value;}" type="number" min="1" :value="`${quantity}`" class="w-14 px-2 py-1 inline-flex shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                                                         </p>
 
                                                         <div class="flex">
@@ -77,18 +77,18 @@
                                     <p>Available Balance</p>
                                     <p x-text="$store.app.user.account_balance"></p>
                                 </div>
+                                <div class="flex flex-col gap-1 mt-4">
+                                    <template x-for="(error, index) in checkoutErrors" :key="index">
+                                        <div class="text-red-500 text-sm text-center" x-text="error"></div>
+                                    </template>
+                                </div>
                                 <div class="mt-6">
-                                    <button type="submit" class="flex w-full justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">Checkout</button>
+                                    <button type="submit" :class="orderReady ? 'bg-indigo-600' : 'pointer-events-none bg-indigo-400' " class="flex w-full justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:bg-indigo-700">Checkout</button>
                                 </div>
                                 <div class="mt-6 flex justify-center text-sm text-center text-gray-500">
                                     <p>
                                         or <button type="button" class="text-indigo-600 font-medium hover:text-indigo-500" @click="openCart = false">Continue Shopping<span aria-hidden="true"> →</span></button>
                                     </p>
-                                </div>
-                                <div class="flex flex-col gap-1 mb-2">
-                                    <template x-for="(error, index) in checkoutErrors" :key="index">
-                                        <div class="text-red-500 text-sm" x-text="error"></div>
-                                    </template>
                                 </div>
                             </div>
                         </template>

@@ -163,6 +163,7 @@
                 showProductModal: false,
                 showSuccessModal: false,
                 productsLoading: true,
+                orderReady: true,
                 cart: [],
                 checkoutErrors: [],
                 deliveryFee: 0,
@@ -254,12 +255,14 @@
                         }).then((response) => response.json())
                         .then(data => {
                             if (data.status !== true) {
-                                checkoutErrors = data.checkout_errors
+                                this.checkoutErrors = data.checkout_errors
+                                return
                             }
                             this.fetchUser()
                             this.updateStoreData(data.total_cart_items, data.total_items_cost)
                             this.openCart = false
                             this.showSuccessModal = true
+                            this.checkoutErrors = []
                             this.cart = {}
                         })
                 }
