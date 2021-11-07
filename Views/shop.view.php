@@ -1,7 +1,18 @@
+<?php
+$this->title = "Shop";
+?>
 <div class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
     <h2 class="text-2xl font-extrabold tracking-tight text-gray-900">Products of the day!</h2>
 
-    <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+    <div x-show="productsLoading" class="py-24">
+        <div class="flex items-center justify-center">
+            <svg class="animate-spin -ml-1 mr-3 h-9 w-9 text-purple-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+        </div>
+    </div>
+    <div x-show="!productsLoading" class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
         <template x-for="(product, index) in Object.values($store.app.products)" :key="index">
             <div class="group relative">
                 <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
@@ -32,12 +43,26 @@
                     </button>
                 </div>
                 <div class="mt-4 flex justify-between">
-                    <div x-data="{ temp: product.average_rating, orig: product.average_rating }" class="flex cursor-pointer text-4xl" @click="orig = temp; rateProduct(product.id, temp, index);">
-                        <input type="number" :value="orig" class="hidden" />
-                        <template x-for="item in [1,2,3,4,5]">
-                            <span @mouseenter="temp = item" @mouseleave="temp = orig" class="text-gray-300 text-base" :class="{'text-purple-600': (temp >= item)}">★</span>
-                        </template>
-                    </div>
+                    <!-- Allow rating if user haven't rated before -->
+                    <template x-if="() => {return allowProductRating(index)}">
+                        <div x-data="{ temp: 0, orig: 0 }" class="flex cursor-pointer text-4xl" @click="orig = temp; rateProduct(product.id, temp, index);">
+                            <input type="number" :value="orig" class="hidden" />
+                            <template x-for="item in [1,2,3,4,5]">
+                                <span @mouseenter="temp = item" @mouseleave="temp = orig" class="text-gray-300 text-base" :class="{'text-purple-600': (temp >= item)}">★</span>
+                            </template>
+                        </div>
+                    </template>
+
+                    <!-- Don't Allow rating if user have rated before -->
+                    <template x-if="() => {return !allowProductRating(index)}">
+                        <div x-data="{ temp: product.average_rating, orig: product.average_rating }" class="flex text-4xl">
+                            <input type="number" :value="orig" class="hidden" />
+                            <template x-for="item in [1,2,3,4,5]">
+                                <span class="text-gray-300 text-base" :class="{'text-purple-600': (product.average_rating >= item)}">★</span>
+                            </template>
+                        </div>
+                    </template>
+
                     <template x-if="product.average_rating == 0">
                         <p class="text-sm text-gray-700">leave a rating</p>
                     </template>
@@ -50,10 +75,8 @@
     </div>
 </div>
 <script>
-    var datas = <?php echo json_encode($products) ?>;
-    var user = <?php echo json_encode($user) ?>;
+    var user = <?= $user ?>;
     document.addEventListener("alpine:init", () => {
-        Alpine.store('app').products = datas
         Alpine.store('app').user = user
     });
 </script>

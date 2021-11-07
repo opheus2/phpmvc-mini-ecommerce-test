@@ -148,13 +148,13 @@
             </nav>
         </header>
     </div>
-    <div>
+    <div x-init="fetchProducts()">
         {{content}}
     </div>
 
     <script type="module" src="/js/app.js" async defer></script>
     <script>
-        var BASE_URL = "http://localhost:8081";
+        var BASE_URL = window.location.origin;
 
         function mainData() {
             return {
@@ -162,6 +162,7 @@
                 showMobileMenu: false,
                 showProductModal: false,
                 showSuccessModal: false,
+                productsLoading: true,
                 cart: [],
                 checkoutErrors: [],
                 deliveryFee: 0,
@@ -169,12 +170,29 @@
                     Alpine.store('app').totalCartItems = cartItems
                     Alpine.store('app').totalItemsCost = ItemsCost
                 },
-                allowRatingB(index) {
+                allowProductRating(index) {
                     const data = {
                         ...Alpine.store('app').products[index]
                     }
                     const filter = data.ratings.filter(rating => rating.user_id == Alpine.store('app').user.id)
-                    return (Object.keys(filter).length === 0 && filter.constructor === Object)
+                    return (Object.keys(filter).length === 0)
+                },
+                async fetchUser() {
+                    await fetch(`${BASE_URL}/user`)
+                        .then((response) => response.json())
+                        .then(data => {
+                            Alpine.store('app').user = data.user
+                        })
+                        .catch((error) => console.log(error))
+                },
+                async fetchProducts() {
+                    await fetch(`${BASE_URL}/products`)
+                        .then((response) => response.json())
+                        .then(data => {
+                            Alpine.store('app').products = data.products
+                            this.productsLoading = false
+                        })
+                        .catch((error) => console.log(error))
                 },
                 async addProductToCart(id) {
                     await fetch(`${BASE_URL}/carts/add?id=${id}`)
@@ -238,7 +256,7 @@
                             if (data.status !== true) {
                                 checkoutErrors = data.checkout_errors
                             }
-                            Alpine.store('app').user = data.user
+                            this.fetchUser()
                             this.updateStoreData(data.total_cart_items, data.total_items_cost)
                             this.openCart = false
                             this.showSuccessModal = true

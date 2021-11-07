@@ -2,11 +2,12 @@
 
 namespace App\Controllers;
 
-use orpheusohms\phpmvc\Request;
+use App\Models\User;
 use App\Models\Product;
-use orpheusohms\phpmvc\Controller;
 use App\Models\Currency;
 use App\Models\ProductRating;
+use orpheusohms\phpmvc\Request;
+use orpheusohms\phpmvc\Controller;
 use App\Middlewares\AuthMiddleware;
 
 class ProductController extends Controller
@@ -19,6 +20,30 @@ class ProductController extends Controller
         $this->registerMiddleWare(new AuthMiddleware());
     }
 
+    public function index()
+    {
+
+        $productsWithRelations = [];
+        $products = Product::getAll();
+        foreach ($products as $product) {
+            //add currency data to products array
+            $product['currency'] = Currency::findOne(['id' => $product['currency_id']]);
+
+            //add all product ratings relationship
+            $product['ratings'] = ProductRating::findAll(['product_id' => $product['id']]);
+            $productsWithRelations[] = $product;
+        }
+
+        //instantiate the _cart session if no session exists for cart
+        if (!app()->session->get('_cart')) {
+            app()->session->create('_cart', []);
+        }
+
+        return json_encode([
+            'products' => $productsWithRelations,
+        ]);
+    }
+    
     /**
      * Show single product via ajax
      *
@@ -65,14 +90,12 @@ class ProductController extends Controller
             ]);
 
             //calculate the average rate and total rate count if the new rating was successful
-            if ($rating) 
-            {
+            if ($rating) {
                 $calculatedRatings = (new Product)->getCalculatedRatings($id);
 
                 //update the product with the new average calculation
                 $product = Product::update($calculatedRatings, ['id' => $id]);
-                if ($product) 
-                {
+                if ($product) {
                     $updatedProduct = (array) Product::findOne(['id' => $id]);
                     //add currency data to products array
                     $updatedProduct['currency'] = Currency::findOne(['id' => $updatedProduct['currency_id']]);
