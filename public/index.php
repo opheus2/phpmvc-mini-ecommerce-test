@@ -9,6 +9,7 @@ use App\Controllers\LoginController;
 use App\Controllers\LogoutController;
 use App\Controllers\ProductController;
 use App\Controllers\RegisterController;
+use App\Controllers\UserController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
@@ -41,6 +42,8 @@ $app->router->post('/logout', [LogoutController::class, '__invoke']);
 
 $app->router->get('/register', [RegisterController::class, 'index']);
 $app->router->post('/register', [RegisterController::class, 'register']);
+
+$app->router->get('/user', [UserController::class, '__invoke']);
 
 /** End Auth Routes */
 
