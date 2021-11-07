@@ -20,7 +20,7 @@
                     </h3>
                     <div class="mt-2">
                         <p class="text-sm text-gray-500">
-                            Your new balance is <strong x-text="user.account_balance"></strong>.
+                            Your new balance is <strong x-text="$store.app.user.account_balance"></strong>.
                         </p>
                     </div>
                 </div>
