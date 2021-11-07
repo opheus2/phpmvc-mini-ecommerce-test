@@ -63,6 +63,9 @@ $this->title = 'Register';
                     </button>
                 </div>
             </form>
+            <div class="mt-3 block text-sm font-medium text-purple-600 text-center">
+                <a href="/login" class="outline-none no-underline">Have an account?</a>
+            </div>
         </div>
     </div>
 </div>
